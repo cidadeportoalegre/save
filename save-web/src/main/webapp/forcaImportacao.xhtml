@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	template="layout/template.xhtml">	
+	<ui:define name="body">
+		<h:form id="pesquisaDown">
+			<rich:toolBar id="botoesDown">
+				<a4j:commandButton value="solicitacoes" title="importar solicitacoes" ajaxSingle="true" immediate="true" limitToList="true"  
+					action="#{solicitacaoAction.importarAgora}"
+					styleClass="btn btn-new"/>
+					
+				<a4j:commandButton value="solicitantes" title="importar solicitantes" ajaxSingle="true" immediate="true" limitToList="true"  
+					action="#{solicitanteAction.importarAgora}"
+					styleClass="btn btn-new"/>
+
+				<a4j:commandButton value="tipos tramite" title="Nova causa de agenda" ajaxSingle="true" immediate="true" limitToList="true"  
+					action="#{solicitacaoAction.importarTiposTramite}"
+					styleClass="btn btn-new"/>	
+
+				<a4j:commandButton value="tipos resposta" ajaxSingle="true" immediate="true" limitToList="true"  
+					action="#{solicitacaoAction.importarTiposResposta}"
+					styleClass="btn btn-new"/>	
+				<a4j:commandButton value="motivos solicitação" ajaxSingle="true" immediate="true" limitToList="true"  
+					action="#{solicitacaoAction.importarMotivosSolicitacao}"
+					styleClass="btn btn-new"/>							
+			</rich:toolBar>
+		</h:form>
+	</ui:define>
+</ui:composition>

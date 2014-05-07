@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages login-view-id="/login.xhtml" no-conversation-view-id="/home.xhtml"
+	xmlns="http://jboss.com/products/seam/pages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.0.xsd">
+	<page view-id="*">
+		<navigation>
+			<rule if-outcome="home">
+				<begin-conversation />
+				<redirect view-id="/home.xhtml" />
+			</rule>	
+			<rule if-outcome="ajuda">
+				<begin-conversation />
+				<redirect view-id="/ajuda.xhtml" />
+			</rule>			
+			<rule if-outcome="user">
+				<begin-conversation />
+				<redirect view-id="/usuarioLista.xhtml" />
+			</rule>
+			<rule if-outcome="role">
+				<begin-conversation />
+				<redirect view-id="/roleLista.xhtml" />
+			</rule>
+			<rule if-outcome="comportamento">
+				<begin-conversation />
+				<redirect view-id="/comportamentoLista.xhtml" />
+			</rule>
+			<rule if-outcome="porte">
+				<begin-conversation />
+				<redirect view-id="/porteLista.xhtml" />
+			</rule>
+			<rule if-outcome="idade">
+				<begin-conversation />
+				<redirect view-id="/idadeLista.xhtml" />
+			</rule>								
+			<rule if-outcome="pelagem">
+				<begin-conversation />
+				<redirect view-id="/pelagemLista.xhtml" />
+			</rule>
+			<rule if-outcome="raca">
+				<begin-conversation />
+				<redirect view-id="/racaLista.xhtml" />
+			</rule>
+			<rule if-outcome="especie">
+				<begin-conversation />
+				<redirect view-id="/especieLista.xhtml" />
+			</rule>
+			<rule if-outcome="viaadocao">
+				<begin-conversation />
+				<redirect view-id="/viaAdocaoLista.xhtml" />
+			</rule>
+			<rule if-outcome="classifRiscoGrupo">
+				<begin-conversation />
+				<redirect view-id="/classifRiscoGrupoLista.xhtml" />
+			</rule>		
+			<rule if-outcome="origemSolicitacao">
+				<begin-conversation />
+				<redirect view-id="/origemSolicitacaoLista.xhtml" />
+			</rule>		
+			<rule if-outcome="motivoSolicitacao">
+				<begin-conversation />
+				<redirect view-id="/motivoSolicitacaoLista.xhtml" />
+			</rule>		
+			<rule if-outcome="situacaoSolicitacao">
+				<begin-conversation />
+				<redirect view-id="/situacaoSolicitacaoLista.xhtml" />
+			</rule>							
+			<rule if-outcome="desfechoSolicitacao">
+				<begin-conversation />
+				<redirect view-id="/desfechoSolicitacaoLista.xhtml" />
+			</rule>	
+			<rule if-outcome="fornecedorChip">
+				<begin-conversation />
+				<redirect view-id="/fornecedorChipLista.xhtml" />
+			</rule>
+			<rule if-outcome="causaAgenda">
+				<begin-conversation />
+				<redirect view-id="/causaAgendaLista.xhtml" />
+			</rule>			
+			<rule if-outcome="tipoSolicitante">
+				<begin-conversation />
+				<redirect view-id="/tipoSolicitanteLista.xhtml" />
+			</rule>		
+			<rule if-outcome="solicitante">
+				<begin-conversation />
+				<redirect view-id="/solicitanteLista.xhtml" />
+			</rule>			
+			<rule if-outcome="solicitacao">
+				<begin-conversation />
+				<redirect view-id="/solicitacaoLista.xhtml" />
+			</rule>
+			<rule if-outcome="solicitacaoImportar">
+				<begin-conversation />
+				<redirect view-id="/solicitacaoImportar.xhtml" />
+			</rule>
+			<rule if-outcome="solicitacaoNova">
+				<begin-conversation />
+				<redirect view-id="/solicitacaoNova.xhtml" />
+			</rule>
+			
+		</navigation>
+	</page>
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/home.xhtml"/>
+	<!-- ******************************************************************************** -->
+	<page action="#{loginAction.addMessage}" view-id="/login.xhtml">
+		<end-conversation />
+		<navigation from-action="#{loginAction.login}">
+			<rule if-outcome="loggedIn" if="#{s:hasRole('AMVAdministrador')}">
+				<begin-conversation />
+				<redirect view-id="/solicitacaoLista.xhtml" />
+			</rule>
+			<rule if-outcome="loggedIn" if="#{s:hasRole('FISCAdministrador')}">
+				<begin-conversation />
+				<redirect view-id="/solicitacaoLista.xhtml" />
+			</rule>
+			<rule if-outcome="loggedIn">
+					<redirect view-id="/home.xhtml" />
+			</rule>			
+			<rule if-outcome="semUsuario">
+				<redirect view-id="/login.xhtml">
+					<param name="messLogin" value="semUsuario" />
+				</redirect>
+			</rule>
+		</navigation>
+	</page>
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/roleLista.xhtml">
+		<description>Perfis de usuário</description>
+		<navigation from-action="#{roleAction.criar}">
+			<rule if-outcome="criar">
+				<begin-conversation nested="true" />
+				<redirect view-id="/roleEdicao.xhtml" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{roleAction.editar}">
+			<rule if-outcome="editar">
+				<begin-conversation nested="true" />
+				<redirect view-id="/roleEdicao.xhtml" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{roleAction.excluir}">
+			<rule if-outcome="listar">
+				<redirect view-id="/roleLista.xhtml" />
+			</rule>
+		</navigation>
+	</page>
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/roleEdicao.xhtml">
+		<description>Edição de Perfil</description>
+		<navigation from-action="#{roleAction.salvar}">
+			<rule if-outcome="listar">
+				<end-conversation />
+				<redirect view-id="#{manager.parentConversationViewId}" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{roleAction.cancelar}">
+			<rule if-outcome="listar">
+				<end-conversation />
+				<redirect view-id="#{manager.parentConversationViewId}" />
+			</rule>
+		</navigation>
+	</page>
+	
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/comportamentoLista.xhtml">
+		<description>Comportamento</description>
+	</page>
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/porteLista.xhtml">
+		<description>Porte</description>
+	</page>
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/idadeLista.xhtml">
+		<description>Idade</description>
+	</page>
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/pelagemLista.xhtml">
+		<description>Pelagem</description>
+	</page>
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/racaLista.xhtml">
+		<description>Raça</description>
+	</page>
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/especieLista.xhtml">
+		<description>Espécie</description>
+	</page>
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/viaAdocaoLista.xhtml">
+		<description>Via de adoção</description>
+	</page>
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/classifRiscoGrupoLista.xhtml">
+		<description>Classificação de risco (grupos)</description>
+	</page>
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/origemSolicitacaoLista.xhtml">
+		<description>Origem da solicitação</description>
+	</page>
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/motivoSolicitacaoLista.xhtml">
+		<description>Motivo da solicitação</description>
+	</page>
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/situacaoSolicitacaoLista.xhtml">
+		<description>Situação da solicitação</description>
+	</page>
+	<!-- ******************************************************************************** -->	
+	<page login-required="true" view-id="/desfechoSolicitacaoLista.xhtml">
+		<description>Desfecho de solicitação</description>
+	</page>
+	<!-- ******************************************************************************** -->	
+	<page login-required="true" view-id="/causaAgendaLista.xhtml">
+		<description>Causa de agenda</description>
+	</page>
+	<!-- ******************************************************************************** -->	
+	<page login-required="true" view-id="/fornecedorChipLista.xhtml">
+		<description>Fornecedores de chip</description>
+	</page>
+	<!-- ******************************************************************************** -->	
+	<page login-required="true" view-id="/tipoSolicitanteLista.xhtml">
+		<description>Tipo de solicitante</description>
+	</page>
+		<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/solicitanteLista.xhtml">
+		<description>Solicitantes</description>
+		<navigation from-action="#{solicitanteAction.criar(solicitacao)}">
+			<rule if-outcome="criar">
+				<begin-conversation nested="true" />
+				<redirect view-id="/solicitanteNovo.xhtml" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{solicitanteAction.selecionar}">
+			<rule if-outcome="selecionar">
+				<begin-conversation nested="true" />
+				<redirect view-id="/solicitanteEdicao.xhtml" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{solicitanteAction.excluir}">
+			<rule if-outcome="listar">
+				<redirect view-id="/solicitanteLista.xhtml" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{solicitacaoAction.selecionarSolicitante(solicitante)}">
+			<rule if-outcome="editarSolicitacao">
+				<redirect view-id="#{manager.parentConversationViewId}" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{solicitanteAction.cancelarLista}">
+			<rule if-outcome="editarSolicitacao">
+				<end-conversation />			
+				<redirect view-id="#{manager.parentConversationViewId}" />
+			</rule>
+		</navigation>		
+	</page>
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/solicitanteEdicao.xhtml">
+		<description>Solicitante</description>
+		<navigation from-action="#{solicitanteAction.salvar}">
+			<rule if-outcome="listar">
+				<end-conversation />
+				<redirect view-id="/solicitanteEdicao.xhtml" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{solicitanteAction.cancelar}">
+			<rule if-outcome="listar">
+				<end-conversation />
+				<redirect view-id="#{manager.parentConversationViewId}" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{solicitacaoAction.editar(solicitacao)}">
+			<rule if-outcome="editar">
+				<begin-conversation nested="true" />
+				<redirect view-id="/solicitacaoEdicao.xhtml" >
+          <param name="origem" value="solicitanteEdicao"/>
+        </redirect>
+			</rule>
+		</navigation>
+	</page>
+	<!-- ******************************************************************************** -->	
+	<page login-required="true" view-id="/solicitacaoNova.xhtml" action="#{solicitacaoAction.criar}">
+		<description>Nova solicitação</description>
+		<navigation from-action="#{solicitacaoAction.cancelar}">
+			<rule if-outcome="listar">
+				<end-conversation />
+				<redirect view-id="/solicitacaoLista.xhtml" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{solicitacaoAction.salvarSolicitacaoSelecionarSolicitante}">
+			<rule if-outcome="selecionarSolicitante">
+				<begin-conversation nested="true" />			
+				<redirect view-id="/solicitanteLista.xhtml" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{solicitacaoAction.salvarNova}">
+			<rule if-outcome="listar">
+				<end-conversation />		
+				<redirect view-id="/solicitacaoLista.xhtml" />
+			</rule>
+		</navigation>
+	</page>	
+	<!-- ******************************************************************************** -->	
+	<page login-required="true" view-id="/solicitacaoImportar.xhtml">
+		<description>Importar solicitação</description>
+		<navigation from-action="#{solicitacaoAction.importarSolicitacao}">
+			<rule if-outcome="listar">
+				<end-conversation />
+				<redirect view-id="/solicitacaoLista.xhtml" />
+			</rule>
+		</navigation>	
+	</page>	
+	
+	<!-- ******************************************************************************** -->	
+	<page login-required="true" view-id="/solicitanteNovo.xhtml">
+		<description>Novo solicitante</description>
+		<navigation from-action="#{solicitanteAction.salvar}">
+			<rule if-outcome="listar">
+				<end-conversation />
+				<redirect view-id="#{manager.parentConversationViewId}" />
+			</rule>
+		</navigation>	
+		<navigation from-action="#{solicitanteAction.salvarNovo(solicitacao)}">
+			<rule if-outcome="listarSolicitacoes">
+				<end-conversation />
+				<redirect view-id="/solicitacaoEdicao.xhtml" />
+			</rule>
+		</navigation>			
+		<navigation from-action="#{solicitanteAction.cancelarNovo}">
+			<rule if-outcome="listar">
+				<end-conversation />
+				<redirect view-id="#{manager.parentConversationViewId}" />
+			</rule>
+		</navigation>
+	</page>
+	<!-- ******************************************************************************** -->	
+	<page login-required="true" view-id="/usuarioLista.xhtml">
+		<description>Usuários</description>
+		<navigation from-action="#{usuarioAction.criar}">
+			<rule if-outcome="criar">
+				<begin-conversation nested="true" />
+				<redirect view-id="/usuarioEdicao.xhtml" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{usuarioAction.editar}">
+			<rule if-outcome="editar">
+				<begin-conversation nested="true" />
+				<redirect view-id="/usuarioEdicao.xhtml" />
+			</rule>
+		</navigation>
+	</page>
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/usuarioEdicao.xhtml">
+		<description>Edição de usuário</description>
+		<navigation from-action="#{usuarioAction.salvar}">
+			<rule if-outcome="listar">
+				<end-conversation />
+				<redirect view-id="#{manager.parentConversationViewId}" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{usuarioAction.cancelar}">
+			<rule if-outcome="listar">
+				<end-conversation />
+			    <raise-event type="solicitacaoObserver"/>				
+				<redirect view-id="#{manager.parentConversationViewId}" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{usuarioAction.excluir}">
+			<rule if-outcome="listar">
+				<redirect view-id="/usuarioLista.xhtml" />
+			</rule>
+		</navigation>		
+	</page>
+		<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/solicitacaoLista.xhtml">
+		<description>Solicitações</description>
+		<navigation from-action="#{solicitacaoAction.criar}">
+			<rule if-outcome="criar">
+				<begin-conversation nested="true" />
+				<redirect view-id="/solicitacaoNova.xhtml" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{solicitacaoAction.editar(solicitacao)}">
+			<rule if-outcome="editar">
+				<begin-conversation nested="true" />
+				<redirect view-id="/solicitacaoEdicao.xhtml" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{solicitacaoAction.excluir}">
+			<rule if-outcome="listar">
+				<redirect view-id="/solicitacaoLista.xhtml" />
+			</rule>
+		</navigation>
+	</page>
+	<!-- ******************************************************************************** -->
+	<page login-required="true" view-id="/solicitacaoEdicao.xhtml">
+		<description>Solicitação#{not empty solicitacao.solicitacaoOrigem?" Vinculada":""}</description>
+		<navigation from-action="#{solicitacaoAction.salvar}">
+			<rule if-outcome="listar">
+				<end-conversation />
+				<redirect view-id="#{manager.parentConversationViewId}" />
+			</rule>
+		</navigation>
+    
+		<navigation from-action="#{solicitacaoAction.cancelar}">
+			<rule if-outcome="listar">
+				<end-conversation />
+        <redirect view-id="/solicitacaoLista.xhtml" />
+			</rule>
+      <rule if-outcome="solicitanteEdicao">
+        <end-conversation />
+        <redirect view-id="/solicitanteEdicao.xhtml" />
+      </rule>
+      <rule if-outcome="solicitacaoEdicao">
+        <end-conversation />
+        <redirect view-id="/solicitacaoEdicao.xhtml"  >
+          <param name="origem" value="solicitacaoEdicao"/>
+        </redirect>
+      </rule>
+		</navigation>
+		
+    <navigation from-action="#{solicitacaoAction.selecionarSolicitante}">
+			<rule if-outcome="selecionarSolicitante">
+				<begin-conversation nested="true" />			
+				<redirect view-id="/solicitanteLista.xhtml" />
+			</rule>
+		</navigation>		
+		<navigation from-action="#{solicitacaoAction.salvarSolicitacaoSelecionarSolicitante}">
+			<rule if-outcome="selecionarSolicitante">
+				<begin-conversation nested="true" />			
+				<redirect view-id="/solicitanteLista.xhtml" />
+			</rule>
+		</navigation>
+		<navigation from-action="#{solicitacaoAction.editar(solicitacaoVinculada)}">
+			<rule if-outcome="editar">
+				<begin-conversation nested="true" />
+				<redirect view-id="/solicitacaoEdicao.xhtml"  >
+          <param name="origem" value="solicitacaoEdicao"/>
+        </redirect>
+			</rule>
+		</navigation>		
+		
+	</page>
+
+	
+	<!-- ******************************************************************************** 
+		******************************************************************************** -->
+	<exception class="org.jboss.seam.framework.EntityNotFoundException">
+		<redirect>
+			<message severity="INFO">Nenhum registro encontrado!!</message>
+		</redirect>
+	</exception>
+	<!-- ******************************************************************************** -->
+	<exception class="javax.persistence.NoResultException">
+		<end-conversation />
+		<redirect>
+			<message severity="INFO">Nenhum registro encontrado!!</message>
+		</redirect>
+	</exception>
+	<!-- ******************************************************************************** -->
+	<exception class="javax.persistence.EntityNotFoundException">
+		<redirect>
+			<message severity="INFO">Registro não encontrado!!</message>
+		</redirect>
+	</exception>
+	<!-- ******************************************************************************** -->
+	<exception class="javax.persistence.OptimisticLockException">
+		<end-conversation />
+		<redirect view-id="/error.xhtml">
+			<message severity="WARN">Outro usuário alterou este registro antes
+				de você,
+				por favor
+				tente novamente
+			</message>
+		</redirect>
+	</exception>
+	<!-- ******************************************************************************** -->
+	<exception class="org.hibernate.StaleObjectStateException">
+		<end-conversation />
+		<redirect view-id="/error.xhtml">
+			<message severity="WARN">Outro usuário alterou este registro antes
+				de você,
+				por favor
+				tente novamente
+			</message>
+		</redirect>
+	</exception>
+	<!-- ******************************************************************************** -->
+	<exception class="org.jboss.seam.security.AuthorizationException">
+		<!-- log="false" log-level="info" -->
+		<redirect view-id="/login.xhtml">
+			<message>Você não possui permissão para acessar esta página!</message>
+		</redirect>
+	</exception>
+	<!-- ******************************************************************************** -->
+	<exception class="org.jboss.seam.security.NotLoggedInException">
+		<redirect view-id="/login.xhtml">
+			<message>Você precisa estar autenticado para usar o sistema.</message>
+		</redirect>
+	</exception>
+	<!-- ******************************************************************************** -->
+	<exception class="javax.ejb.EJBTransactionRolledbackException">
+		<redirect view-id="/login.xhtml">
+			<message>Houve em erro inesperado, faça autenticação no sistema
+				novamente.
+			</message>
+		</redirect>
+	</exception>
+	<!-- ******************************************************************************** -->
+	<exception class="javax.resource.ResourceException">
+		<redirect view-id="/login.xhtml">
+			<message>Houve em erro inesperado, faça autenticação no sistema
+				novamente.
+			</message>
+		</redirect>
+	</exception>
+	<!-- ******************************************************************************** -->
+	<exception class="javax.faces.application.ViewExpiredException">
+		<redirect view-id="/login.xhtml">
+			<message>Você ficou muito tempo sem usar o sistema, faça autenticação
+				novamente.
+			</message>
+		</redirect>
+	</exception>	
+	<!-- ******************************************************************************** -->
+	<exception class="org.jboss.seam.web.FileUploadException">
+		<redirect view-id="/error.xhtml">
+			<message severity="WARN">#{org.jboss.seam.handledException.message}
+			</message>
+		</redirect>
+	</exception>
+	<!-- ******************************************************************************** -->
+	<exception>
+		<redirect>
+			<message>Houve em erro inesperado, faça autenticação no sistema
+				novamente.
+			</message>
+		</redirect>
+	</exception>
+</pages>

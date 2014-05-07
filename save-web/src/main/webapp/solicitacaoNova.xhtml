@@ -1,0 +1,266 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	template="layout/template.xhtml">
+	<ui:define name="body">
+		<script>
+
+	// Para acesso ao CDL
+	var janela = null;
+	var janelaDM = null;
+
+	function centraliza(width,height)
+	{
+		var properties = '';
+		var leftprop, topprop, screenX, screenY;
+		if(navigator.appName == "Microsoft Internet Explorer") {
+			screenY = window.screen.availHeight;
+			screenX = window.screen.availWidth;
+		} else {
+			screenY = window.outerHeight;
+			screenX = window.outerWidth;
+		}
+		leftvar = (screenX - width) / 2;
+		rightvar = (screenY - height) / 2;
+		// Está abrindo a janela no canto superior esquerdo
+		if(navigator.appName == "Microsoft Internet Explorer") {
+			leftprop = leftvar;
+			topprop = rightvar;
+		} else {
+			leftprop = (leftvar - pageXOffset);
+			topprop = (rightvar - pageYOffset);
+		}
+		return ", left = " + leftprop + ", top = " + topprop;
+	}
+	
+	/*
+	 * Retorna a URL da aplicação
+	 */
+	function buscaURL() {
+		aux = document.location.href;
+		pos = aux.lastIndexOf("/");
+		return aux.substring(0, pos+1);
+	}
+	
+	//Função de acesso ao componente. Precisa ter a página de retorno (pg) especificada
+	function abreCDL() {			
+		janela=window.open('http://www.portoalegre.rs.gov.br/cdl/CDLWeb2/CDLPesquisaLogradouro.asp?pn='+""+'&amp;pg='+buscaURL()+'recebeCDL.html&amp;mapa=0','CDL','titlebar=0,location=no,toolbar=no,resizable=no,scrollbars=no,status=yes,width=670,height=400'+centraliza(670,400));
+	}		
+
+
+
+	function limpar() {
+		 
+		document.getElementById('idFormEditSolicitacao:logradouroCodigo').value = "";
+		document.getElementById('idFormEditSolicitacao:logradouroNome').value = "";
+		document.getElementById('idFormEditSolicitacao:logradouroNumero').value = ""; 
+		document.getElementById('idFormEditSolicitacao:Bairro').value = ""; 
+	}	
+	//Função que recebe os dados do logradouro selecionado
+	function recebeLogr(cod, nome, cep, bairro, nroini, nrofin) {
+		if (cod != 0)  {
+			document.getElementById('idFormEditSolicitacao:idCodigoCdl').value = cod;
+			document.getElementById('idFormEditSolicitacao:div2:idLogradouro').value = nome; 
+			document.getElementById('idFormEditSolicitacao:div3:idNumero').value = nroini; 
+			document.getElementById('idFormEditSolicitacao:div4:idCep').value = cep; 
+			document.getElementById('idFormEditSolicitacao:div5:idBairro').value = bairro; 
+			document.getElementById('idFormEditSolicitacao:div6:idMunicipio').value = "Porto Alegre"; 
+			document.getElementById('idFormEditSolicitacao:div7:idUf').value = "RS"; 
+
+			document.getElementById('idFormEditSolicitacao:div3:idNumero').onchange();
+		}
+		else {
+			if (document.getElementById('idFormEditSolicitacao:div1:idCodigoCdl').value == 0) {
+				document.getElementById('idFormEditSolicitacao:div1:idCodigoCdl').value = "9999996";
+				document.getElementById('idFormEditSolicitacao:div2:idLogradouro').value = ""; 
+				document.getElementById('idFormEditSolicitacao:div3:idNumero').value = ""; 
+				document.getElementById('idFormEditSolicitacao:div4:idCep').value = ""; 
+				document.getElementById('idFormEditSolicitacao:div5:idBairro').value = ""; 
+				document.getElementById('idFormEditSolicitacao:div6:idMunicipio').value = ""; 
+				document.getElementById('idFormEditSolicitacao:div7:idUf').value = ""; 
+			} 	    			    		
+		}
+	}
+		
+				
+		function confirma() {
+			msg = 'Confirma salvamento das alterações realizadas?';
+			return confirm(msg);
+		}
+<!--
+		//valida o CPF digitado
+		function ValidarCPF(Objcpf){
+			//alert(document.getElementById(Objcpf).value);	
+			var cpf = document.getElementById(Objcpf).value;
+			exp = /\.|\-/g
+			cpf = cpf.toString().replace( exp, "" ); 
+			var digitoDigitado = eval(cpf.charAt(9)+cpf.charAt(10));
+			var soma1=0, soma2=0;
+			var vlr =11;
+			
+			for(i=0;i<9;i++){
+				soma1+=eval(cpf.charAt(i)*(vlr-1));
+				soma2+=eval(cpf.charAt(i)*vlr);
+				vlr=vlr-1;
+			}	
+			soma1 = (((soma1*10)%11)==10 ? 0:((soma1*10)%11));
+			soma2=(((soma2+(2*soma1))*10)%11);
+			
+			var digitoGerado=(soma1*10)+soma2;
+			if(digitoGerado!=digitoDigitado)	
+				alert('CPF Inválido!');		
+		}
+		-->
+	</script>
+
+
+		<a4j:form id="idFormEditSolicitacao">
+		
+			<rich:panel>
+				<h:outputText value="" id="idMostrarMensagens"/>
+				<rich:messages layout="table" ajaxRendered="true" />
+				<h:panelGrid columns="2" styleClass="duascolunas">
+					Nº protocolo MP
+					<s:decorate template="/layout/edit.xhtml">
+					<h:inputText 
+							value="#{solicitacao.protocoloMp}" id="nProtocoloMp"
+							label="nProtocoloMp"
+							styleClass="form-control input"/>
+							<rich:jQuery selector="#nProtocoloMp" query="setMask('999999-99-99')" timing="immediate" />
+					</s:decorate>
+					Nº protocolo PA
+					<s:decorate template="/layout/edit.xhtml">
+						<h:inputText 
+							value="#{solicitacao.protocoloPa}" id="nProtocoloPa"
+							label="nProtocoloPa"
+							styleClass="form-control input"/>
+							<rich:jQuery selector="#nProtocoloPa" query="setMask('999999-99-99')" timing="immediate" />
+					</s:decorate>
+					Relato do solicitante
+						<s:decorate template="/layout/edit.xhtml">
+						<h:inputTextarea 
+							value="#{solicitacao.relatoSolicitante}" id="relatoSolicitante"
+							label="Relato do solicitante"
+							styleClass="form-control input"/>
+					</s:decorate>
+					Motivo
+						<s:decorate template="/layout/edit.xhtml">
+						<h:selectOneMenu label="Motivo"
+							value="#{solicitacao.motivoSolicitacao}" 
+							id="motivoSolicitacao"
+							styleClass="form-control dropdown-toggle clearfix input">
+							<s:selectItems value="#{solicitacaoAction.motivoSolicitacaoList}"
+								var="varMotivo" label="#{varMotivo.descricao}"
+								noSelectionLabel="Selecione o motivo"/>
+							<s:convertEntity />
+						</h:selectOneMenu>
+					</s:decorate>
+				</h:panelGrid>
+
+				
+					<h4>Endereço</h4>
+						<h5><h:outputLink onmousedown="abreCDL();" value="Busca CDL" onclick="return false">
+							<h:outputText value="Atualizar endereço a partir do Cadastro de Logradouros da Prefeitura de Porto Alegre" />
+						</h:outputLink></h5>
+						<h5><a4j:commandLink value="Desbloquear campos abaixo e informar endereço manualmente" action="#{solicitacaoAction.defineEnderecoFora}" reRender="idPnlEndereco, idPnlHidden" /></h5>
+					
+					<a4j:region renderRegionOnly="true">
+						<h:panelGrid prependId="false" id="idPnlEndereco" columns="2" styleClass="duascolunas">
+							Rua, Av., Praça, etc.
+							<s:decorate template="/layout/edit.xhtml" id="div2" prependId="false">
+								<h:inputText label="Rua, Av., Praça, etc." id="idLogradouro" value="#{solicitacao.enderecoOcorrencia.logradouro}" size="53" maxlength="50" required="true" disabled="#{solicitacaoAction.enderecoPoa}" styleClass="form-control input"/>
+							</s:decorate>
+							Número
+							<s:decorate template="/layout/edit.xhtml" id="div3" prependId="false">
+								<h:inputText label="Número" value="#{solicitacao.enderecoOcorrencia.numero}" id="idNumero" required="true" size="6" maxlength="5" styleClass="form-control input">
+									<a4j:support event="onchange" action="#{solicitacaoAction.defineEnderecoPoa}" reRender="idPnlEndereco" limitToList="true" />
+								</h:inputText>
+								<rich:jQuery selector="#idNumero" query="setMask('99999')" timing="immediate" />
+							</s:decorate>
+							Complemento
+							<s:decorate template="/layout/edit.xhtml">
+								<h:inputText label="Complemento" value="#{solicitacao.enderecoOcorrencia.complemento}" size="11" maxlength="10" styleClass="form-control input"/>
+							</s:decorate>
+							CEP
+							<s:decorate template="/layout/edit.xhtml" id="div4" prependId="false">
+								<h:inputText label="CEP" value="#{solicitacao.enderecoOcorrencia.cepFormatado}" id="idCep" size="10" maxlength="9" required="true" disabled="#{solicitacaoAction.enderecoPoa}" styleClass="form-control input"/>
+								<rich:jQuery selector="#idCep" query="setMask('cep')" timing="immediate" />
+							</s:decorate>
+							Bairro
+							<s:decorate template="/layout/edit.xhtml" id="div5"
+								prependId="false">
+								<h:inputText label="Bairro" value="#{solicitacao.enderecoOcorrencia.bairro}" size="22" maxlength="20" id="idBairro" disabled="#{solicitacaoAction.enderecoPoa}" styleClass="form-control input"/>
+							</s:decorate>
+							Município
+							<s:decorate template="/layout/edit.xhtml" id="div6"
+								prependId="false">
+								<h:inputText label="Município" value="#{solicitacao.enderecoOcorrencia.municipio}" size="32" maxlength="30" required="true" id="idMunicipio" disabled="#{solicitacaoAction.enderecoPoa}" styleClass="form-control input"/>
+							</s:decorate>
+							UF
+							<s:decorate template="/layout/edit.xhtml" id="div7"
+								prependId="false">
+								<h:selectOneMenu label="UF" value="#{solicitacao.enderecoOcorrencia.uf}" required="true" id="idUf" disabled="#{solicitacaoAction.enderecoPoa}" styleClass="form-control dropdown-toggle clearfix input-sm">
+									<s:selectItems value="#{ufLista}" var="uf" label="#{uf}" noSelectionLabel="" />
+									<s:convertEnum />
+								</h:selectOneMenu>
+							</s:decorate>
+						</h:panelGrid>						
+						<h:panelGrid id="idPnlHidden" styleClass="semborda">
+							<h:inputHidden value="#{solicitacao.enderecoOcorrencia.codigoCdl}"
+								id="idCodigoCdl" />
+						</h:panelGrid>
+					</a4j:region>		
+					
+				<h4>Solicitante</h4>
+				<h:panelGrid columns="2" styleClass="duascolunas" rendered="#{not empty solicitacao.solicitante.id}">
+					Nome <h:outputText value="#{solicitacao.solicitante.nomeSolicitante}" />
+					CPF <h:outputText value="#{solicitacao.solicitante.cpf}" />
+					RG <h:outputText value="#{solicitacao.solicitante.rg}" />
+					CNPJ <h:outputText value="#{solicitacao.solicitante.cnpj}" />
+					Endereço <h:outputText value="#{solicitacao.solicitante.endereco.logradouro}, #{solicitacao.solicitante.endereco.numero}" />
+					Complemento <h:outputText value="#{solicitacao.solicitante.endereco.complemento}" />
+					Telefone celular <h:outputText value="#{solicitacao.solicitante.telefoneCel}" />
+					Telefone residencial<h:outputText value="#{solicitacao.solicitante.telefoneRes}" />
+					Telefone comercial<h:outputText value="#{solicitacao.solicitante.telefoneCom}" />
+				</h:panelGrid>
+			</rich:panel>
+			
+			<h5>
+			<a4j:commandButton value="Alterar solicitante"
+				title="Alterar solicitante"
+				action="#{solicitacaoAction.salvarSolicitacaoSelecionarSolicitante}"
+				styleClass="btn btn-primary"
+				rendered="#{s:hasRole('Administrador')}" oncomplete="#{rich:element('idMostrarMensagens')}.scrollIntoView(true)" />
+			</h5>
+			
+			<rich:panel>
+				<h4>Centros</h4>
+				
+				<rich:listShuttle id="listShuttle" sourceValue="#{solicitacaoAction.secretariaList}"
+									targetValue="#{solicitacao.secretariaList}" var="secretaria" 
+									listsHeight="150px" sourceListWidth="370" targetListWidth="370"
+									sourceCaptionLabel="Centros disponíveis"
+									targetCaptionLabel="Centros vinculados" 
+									orderControlsVisible="false" showButtonLabels="false"
+									fastOrderControlsVisible="false">
+									<rich:column>
+										<h:outputText value="#{secretaria.sigla}"></h:outputText>
+									</rich:column>
+									<s:convertEntity />
+				</rich:listShuttle>
+				
+			</rich:panel>
+			
+			<rich:toolBar id="botoesLiderModal">
+				<rich:toolBarGroup location="right">
+					<a4j:commandButton value="Cancelar" title="Cancelar" action="#{solicitacaoAction.cancelar}" immediate="true" styleClass="btn btn-primary" />
+					<a4j:commandButton value="Salvar" title="Salvar" action="#{solicitacaoAction.salvarNova}" rendered="#{s:hasRole('Administrador')}" styleClass="btn btn-primary" />
+				</rich:toolBarGroup>
+			</rich:toolBar>
+		</a4j:form>
+	</ui:define>
+</ui:composition>

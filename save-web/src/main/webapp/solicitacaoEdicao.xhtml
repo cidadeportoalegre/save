@@ -1,0 +1,392 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:rich="http://richfaces.org/rich"
+  xmlns:s="http://jboss.com/products/seam/taglib"
+  template="layout/template.xhtml">
+  <ui:define name="body">
+  
+    <h:panelGrid id="idPanelEditTramite">
+      <rich:modalPanel id="panelEditTramite" autosized="true">
+        <f:facet name="header">
+          <h:outputText value="Novo trâmite" />
+        </f:facet>
+        <a4j:form id="idFormEditTramite">
+          <rich:panel>
+            <rich:messages layout="table" ajaxRendered="true" />
+            <s:decorate template="/layout/edit.xhtml"
+              rendered="#{empty tramite.solicitacao.solicitacaoOrigem}">
+              <h:selectBooleanCheckbox
+                value="#{tramite.encerrarProcesso}"
+                title="Encerrar o processo.">
+                <a4j:support event="onclick"
+                  reRender="idPanelTipoTramiteDesfecho"
+                  ajaxSingle="true" />
+              </h:selectBooleanCheckbox>
+              <ui:define name="label">Encerrar o processo</ui:define>
+              <ui:param name="labelWidth" value="160" />
+            </s:decorate>
+            <rich:panel id="idPanelTipoTramiteDesfecho">
+              <s:decorate template="/layout/edit.xhtml"
+                rendered="#{not tramite.encerrarProcesso}">
+                <ui:param name="labelWidth" value="80" />
+                <ui:define name="label">Trâmite</ui:define>
+                <h:selectOneMenu label="Trâmite"
+                  value="#{tramite.tipoTramite}" required="true"
+                  id="idTipoTramite"
+                  styleClass="form-control dropdown-toggle clearfix input">
+                  <s:selectItems
+                    value="#{solicitacaoAction.tipoTramiteList}"
+                    var="varTipoTramite"
+                    label="#{varTipoTramite.descricao}"
+                    noSelectionLabel="Selecione o trâmite" />
+                  <s:convertEntity />
+                </h:selectOneMenu>
+              </s:decorate>
+              <s:decorate template="/layout/edit.xhtml"
+                rendered="#{tramite.encerrarProcesso}">
+                <ui:param name="labelWidth" value="80" />
+
+                <ui:define name="label">Desfecho da solicitação</ui:define>
+                <h:selectOneMenu label="Desfecho da solicitação"
+                  value="#{tramite.desfechoSolicitacao}"
+                  id="idDesfechoSolicitacao"
+                  styleClass="form-control dropdown-toggle clearfix input">
+                  <s:selectItems
+                    value="#{solicitacaoAction.desfechoSolicitacaoList}"
+                    var="varDesfechoSolicitacao"
+                    label="#{varDesfechoSolicitacao.descricao}"
+                    noSelectionLabel="Selecione o desfecho da solicitação" />
+                  <s:convertEntity />
+                </h:selectOneMenu>
+              </s:decorate>
+            </rich:panel>
+            <s:decorate template="/layout/edit.xhtml">
+              <ui:param name="labelWidth" value="80" />
+              <ui:define name="label">Tipo de resposta</ui:define>
+              <h:selectOneMenu
+                value="#{solicitacaoAction.respostaSolicitacao.tipoResposta}"
+                required="true" id="idTipoResposta"
+                styleClass="form-control dropdown-toggle clearfix input"
+                label="Tipo de Resposta">
+                <s:selectItems
+                  value="#{solicitacaoAction.tipoRespostaList}"
+                  var="varTipoResposta"
+                  label="#{varTipoResposta.descricao}"
+                  noSelectionLabel="Selecione o tipo de resposta" />
+                <s:convertEntity />
+                <a4j:support event="onchange" reRender="idPanelResposta"
+                  ajaxSingle="true"
+                  action="#{solicitacaoAction.escolherResposta}" />
+              </h:selectOneMenu>
+            </s:decorate>
+            <rich:panel id="idPanelResposta">
+              <s:decorate template="/layout/edit.xhtml">
+                <h:inputTextarea
+                  value="#{solicitacaoAction.respostaSolicitacao.descricaoResposta}"
+                  styleClass="form-control" rows="6" />
+                <ui:define name="label">Resposta</ui:define>
+              </s:decorate>
+            </rich:panel>
+          </rich:panel>
+          <rich:toolBar id="botoesLiderModal">
+
+            <rich:toolBarGroup location="left">
+              <a4j:commandButton value="Cancelar" immediate="true" action="solicitacaoAction.cancelarTramite"
+                onclick="#{rich:component('panelEditTramite')}.hide()"
+                id="cancelarTramite" styleClass="btn btn-primary" />
+            </rich:toolBarGroup>
+            <rich:toolBarGroup location="right">
+              <a4j:commandButton value="Salvar"
+                action="#{solicitacaoAction.salvarTramite}"
+                reRender="listaTramite,panelSolicitacao,pnlSolicitacoesVinculadas"
+                id="salvarTramite"
+                oncomplete="if (#{facesContext.maximumSeverity==null}) #{rich:component('panelEditTramite')}.hide();"
+                styleClass="btn btn-primary" />
+            </rich:toolBarGroup>
+          </rich:toolBar>
+        </a4j:form>
+      </rich:modalPanel>
+    </h:panelGrid>
+    
+    <a4j:form id="idFormEditTipoSolicitante">
+      <rich:messages layout="table" ajaxRendered="true" />
+      
+      <rich:panel id="pnlSolicitacaoOrigem" rendered="#{not empty solicitacao.solicitacaoOrigem}">
+        <h:panelGrid columns="2" styleClass="duascolunas">
+          Solicitação de origem 
+          <h:commandLink  value="#{solicitacao.solicitacaoOrigem.protocolo}" action="#{solicitacaoAction.goSolicitacaoOrigem()}" />
+        </h:panelGrid> 
+      </rich:panel>
+                    
+      <rich:panel id="panelSolicitacao">
+        <h:panelGrid columns="2" styleClass="duascolunas">
+          <h:outputText value="Nº protocolo MP"
+            rendered="#{solicitacao.origemSolicitacao.descricao eq solicitacaoAction.getOrigemManual()}" />
+          <s:decorate template="/layout/edit.xhtml"
+            rendered="#{solicitacao.origemSolicitacao.descricao eq solicitacaoAction.getOrigemManual()}">
+            <h:inputText value="#{solicitacao.protocoloMp}"
+              id="nProtocoloMp" label="nProtocoloMp"
+              styleClass="form-control input" />
+            <rich:jQuery selector="#nProtocoloMp"
+              query="setMask('999999-99-99')" timing="immediate" />
+          </s:decorate>
+          <h:outputText value="Nº protocolo PA"
+            rendered="#{solicitacao.origemSolicitacao.descricao eq solicitacaoAction.getOrigemManual()}" />
+          <s:decorate template="/layout/edit.xhtml"
+            rendered="#{solicitacao.origemSolicitacao.descricao eq solicitacaoAction.getOrigemManual()}">
+            <h:inputText value="#{solicitacao.protocoloPa}"
+              id="nProtocoloPa" label="nProtocoloPa"
+              styleClass="form-control input" />
+            <rich:jQuery selector="#nProtocoloPa"
+              query="setMask('999999-99-99')" timing="immediate" />
+          </s:decorate>       
+          
+          Relato do solicitante <h:outputText
+            value="#{solicitacao.relatoSolicitante}" />
+          Endereço <h:outputText
+            value="#{solicitacao.enderecoOcorrencia.logradouro}, #{solicitacao.enderecoOcorrencia.numero} / #{solicitacao.enderecoOcorrencia.complemento}" />
+          Bairro <h:outputText
+            value="#{solicitacao.enderecoOcorrencia.bairro}" />
+          Data de abertura <h:outputText
+            value="#{solicitacao.dataAbertura.time}" >
+                 <s:convertDateTime dateStyle="medium" type="both" />
+            </h:outputText>
+          Data de encerramento <h:outputText
+            value="#{solicitacao.dataEncerramento.time}">
+                 <s:convertDateTime dateStyle="medium" type="both" />
+            </h:outputText>       
+          Origem <h:outputText
+            value="#{solicitacao.origemSolicitacao.descricao}" />
+          Motivo <h:outputText
+            value="#{solicitacao.motivoSolicitacao.descricao}"
+            rendered="#{solicitacao.origemSolicitacao.descricao ne solicitacaoAction.getOrigemManual()}" />
+          <s:decorate template="/layout/edit.xhtml"
+            rendered="#{solicitacao.origemSolicitacao.descricao eq solicitacaoAction.getOrigemManual()}">
+            <h:selectOneMenu label="Motivo"
+              value="#{solicitacao.motivoSolicitacao}"
+              id="motivoSolicitacao"
+              styleClass="form-control dropdown-toggle clearfix input">
+              <s:selectItems
+                value="#{solicitacaoAction.motivoSolicitacaoList}"
+                var="varMotivo" label="#{varMotivo.descricao}"
+                noSelectionLabel="Selecione o motivo" />
+              <s:convertEntity />
+            </h:selectOneMenu>
+          </s:decorate>
+          Situação <h:outputText
+            value="#{solicitacao.situacaoSolicitacao.descricao}"
+            rendered="#{solicitacao.origemSolicitacao.descricao ne solicitacaoAction.getOrigemManual()}" />
+          <s:decorate template="/layout/edit.xhtml"
+            rendered="#{solicitacao.origemSolicitacao.descricao eq solicitacaoAction.getOrigemManual()}">
+            <h:selectOneMenu label="situacao"
+              value="#{solicitacao.situacaoSolicitacao}"
+              id="situacaoSolicitacao"
+              styleClass="form-control dropdown-toggle clearfix input">
+              <s:selectItems
+                value="#{solicitacaoAction.situacaoSolicitacaoList}"
+                var="varSituacao" label="#{varSituacao.descricao}"
+                noSelectionLabel="Selecione a situação" />
+              <s:convertEntity />
+            </h:selectOneMenu>
+          </s:decorate>
+          Tipo de solicitante           
+          <s:decorate template="/layout/edit.xhtml">
+            <h:selectOneMenu label="Trâmite"
+              value="#{solicitacao.tipoSolicitante}"
+              id="idTipoSolicitante"
+              styleClass="form-control dropdown-toggle clearfix input">
+              <s:selectItems
+                value="#{solicitacaoAction.tipoSolicitanteList}"
+                var="varTipoSolicitante"
+                label="#{varTipoSolicitante.descricao}"
+                noSelectionLabel="Selecione o tipo de solicitante" />
+              <s:convertEntity />
+            </h:selectOneMenu>
+          </s:decorate>
+        </h:panelGrid>
+
+        <rich:panel id="pnlTramites"
+          rendered="#{solicitacao.origemSolicitacao.descricao ne solicitacaoAction.getOrigemManual()}">
+          <h4>Trâmites</h4>
+          <a4j:outputPanel id="listaTramite">
+            <h5>
+              <h:outputText value="Nenhum trâmite registrado"
+                rendered="#{solicitacaoAction.tramiteLista != null and solicitacaoAction.tramiteLista.size==0}" />
+            </h5>
+
+            <rich:dataTable id="tbTramite"
+              value="#{solicitacaoAction.tramiteLista}" var="varTramite"
+              rows="50"
+              rendered="#{solicitacaoAction.tramiteLista != null and solicitacaoAction.tramiteLista.size>0}"
+              styleClass="tramites">
+              <rich:column>
+                <f:facet name="header">Data</f:facet>
+                <h:outputText value="#{varTramite.dataTramite.time}">
+                  <s:convertDateTime dateStyle="medium" type="both" />
+                </h:outputText>
+              </rich:column>
+              <rich:column>
+                <f:facet name="header">Trâmite</f:facet>
+                <h:outputText
+                  value="#{varTramite.tipoTramite.descricao}" />
+              </rich:column>
+              <rich:column>
+                <f:facet name="header">Resposta</f:facet>
+                <rich:dataList var="varResposta"
+                  value="#{varTramite.respostaList}">
+                  <h:outputText value="#{varResposta.descricaoResposta}" />
+                  <br />
+                </rich:dataList>
+              </rich:column>
+              <rich:column style="width:200px;">
+                <f:facet name="header">Desfecho</f:facet>
+                <h:outputText
+                  value="#{varTramite.desfechoSolicitacao.descricao}" />
+              </rich:column>
+              <f:facet name="footer">
+                <rich:datascroller id="tbScroller" for="tbTramite" renderIfSinglePage="false">
+                  <f:facet name="previous">
+                    <h:outputText value="‹" />
+                  </f:facet>
+                  <f:facet name="next">
+                    <h:outputText value="›" />
+                  </f:facet>
+                </rich:datascroller>
+              </f:facet>
+            </rich:dataTable>
+            <h5>
+              <a4j:commandButton value="+ novo trâmite"
+                title="Novo trâmite" ajaxSingle="true" immediate="true"
+                limitToList="true" reRender="idPanelEditTramite, listaTramite"
+                action="#{solicitacaoAction.criarTramite}"
+                oncomplete="Richfaces.showModalPanel('panelEditTramite')"
+                styleClass="btn btn-new" rendered="#{empty solicitacao.dataEncerramento and empty solicitacao.solicitacaoOrigem}" />
+            </h5>
+          </a4j:outputPanel>
+        </rich:panel>
+      </rich:panel>
+      
+      <rich:panel id="pnlCentros" rendered="#{empty solicitacao.solicitacaoOrigem}">
+        <h4>Centros</h4>
+        <rich:listShuttle id="listShuttle"
+          sourceValue="#{solicitacaoAction.secretariaList}"
+          targetValue="#{solicitacao.secretariaList}" var="secretaria"
+          listsHeight="150px" sourceListWidth="385"
+          targetListWidth="385" sourceCaptionLabel="Centros disponíveis"
+          targetCaptionLabel="Centros vinculados"
+          orderControlsVisible="false" showButtonLabels="false" 
+          fastOrderControlsVisible="false"  >
+          <rich:column>
+            <h:outputText value="#{secretaria.sigla}"></h:outputText>
+          </rich:column>
+          <s:convertEntity />
+        </rich:listShuttle>
+      </rich:panel>
+      
+      <rich:panel id="pnlSolicitante">
+        <h4>Solicitante</h4>
+        <h:panelGrid columns="2"
+          rendered="#{not empty solicitacao.solicitante.id}"
+          styleClass="duascolunas">
+          Nome <h:outputText
+            value="#{solicitacao.solicitante.nomeSolicitante}" />
+          CPF <h:outputText value="#{solicitacao.solicitante.cpf}" />
+          RG <h:outputText value="#{solicitacao.solicitante.rg}" />
+          CNPJ <h:outputText value="#{solicitacao.solicitante.cnpj}" />
+          Endereço <h:outputText
+            value="#{solicitacao.solicitante.endereco.logradouro}, #{solicitacao.solicitante.endereco.numero} / #{solicitacao.solicitante.endereco.complemento}" />
+          Telefone celular <h:outputText
+            value="#{solicitacao.solicitante.telefoneCel}" />
+          Telefone residencial<h:outputText
+            value="#{solicitacao.solicitante.telefoneRes}" />
+          Telefone comercial<h:outputText
+            value="#{solicitacao.solicitante.telefoneCom}" />
+          Observações: <h:outputText
+            value="#{solicitacao.solicitante.observacao}" />
+        </h:panelGrid>
+        <h5>
+          <a4j:commandButton value="Alterar solicitante"
+            title="Alterar solicitante"
+            action="#{solicitacaoAction.salvarSolicitacaoSelecionarSolicitante}"
+            styleClass="btn btn-primary"
+            rendered="#{s:hasRole('Administrador') and solicitacao.origemSolicitacao.descricao eq solicitacaoAction.getOrigemManual()}" />
+        </h5>
+      </rich:panel>
+
+      <rich:panel id="pnlSolicitacoesVinculadas" rendered="#{empty solicitacao.solicitacaoOrigem}">
+        <h4>
+          <h:outputText value="Solicitações vinculadas"
+            rendered="#{solicitacaoAction.solicitacaoVinculadaList != null and solicitacaoAction.solicitacaoVinculadaList.size>0}" />
+        </h4>
+        <rich:dataTable id="tbSolicitacaoVinculada"
+          value="#{solicitacaoAction.solicitacaoVinculadaList}"
+          var="solicitacaoVinculada" rows="10"
+          rendered="#{solicitacaoAction.solicitacaoVinculadaList != null and solicitacaoAction.solicitacaoVinculadaList.size>0}"
+          onRowClick="#{solicitacaoAction.goSolicitacaoVinculada(solicitacaoVinculada)}"
+          onRowMouseOver="this.classList.add('rich-row-select');"
+          onRowMouseOut="this.classList.remove('rich-row-select');">
+          <a4j:support event="onRowClick" reRender="idFormEditTipoSolicitante,breadCrumb" focus="idFormEditTipoSolicitante" oncomplete="window.scroll(0,0);"
+            action="#{solicitacaoAction.goSolicitacaoVinculada(solicitacaoVinculada)}" />
+          <rich:column
+            styleClass="#{solicitacaoVinculada.situacaoSolicitacao.descricao ne solicitacaoAction.getSituacaoDestacada() ? 'rich-row-inactive': 'default'}"
+            sortBy="#{solicitacaoVinculada.protocolo}">
+            <f:facet name="header">Protocolo</f:facet>
+            <h:outputText value="#{solicitacaoVinculada.protocolo}" />
+          </rich:column>
+          <rich:column
+            styleClass="#{solicitacaoVinculada.situacaoSolicitacao.descricao ne solicitacaoAction.getSituacaoDestacada() ? 'rich-row-inactive': 'default'}"
+            sortBy="#{solicitacaoVinculada.dataAbertura.time}"
+            sortOrder="DESCENDING">
+            <f:facet name="header">Abertura</f:facet>
+            <h:outputText
+              value="#{solicitacaoVinculada.dataAbertura.time}">
+              <s:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+          </rich:column>
+          <rich:column
+            styleClass="#{solicitacaoVinculada.situacaoSolicitacao.descricao ne solicitacaoAction.getSituacaoDestacada() ? 'rich-row-inactive': 'default'}">
+            <f:facet name="header">Motivo da solicitação</f:facet>
+            <h:outputText
+              value="#{solicitacaoVinculada.motivoSolicitacao.descricao}">
+            </h:outputText>
+          </rich:column>
+          <rich:column
+            styleClass="#{solicitacaoVinculada.situacaoSolicitacao.descricao ne solicitacaoAction.getSituacaoDestacada() ? 'rich-row-inactive': 'default'}"
+            sortBy="#{solicitacaoVinculada.solicitante.nomeSolicitante}">
+            <f:facet name="header">Solicitante</f:facet>
+            <h:outputText
+              value="#{solicitacaoVinculada.solicitante.nomeSolicitante}">
+            </h:outputText>
+          </rich:column>
+
+          <f:facet name="footer">
+            <rich:datascroller id="tbScroller"
+              for="tbSolicitacaoVinculada" renderIfSinglePage="false">
+              <f:facet name="previous">
+                <h:outputText value="‹" />
+              </f:facet>
+              <f:facet name="next">
+                <h:outputText value="›" />
+              </f:facet>
+            </rich:datascroller>
+          </f:facet>
+        </rich:dataTable>
+      </rich:panel>
+      
+      <rich:toolBar id="botoesLiderModal">
+        <rich:toolBarGroup location="right">
+          <a4j:commandButton value="Cancelar" title="Cancelar"
+            action="#{solicitacaoAction.cancelar}" immediate="true"
+            styleClass="btn btn-primary" />
+          <a4j:commandButton value="Salvar"
+            action="#{solicitacaoAction.salvar}"
+            id="salvarTipoSolicitante" styleClass="btn btn-primary" />
+        </rich:toolBarGroup>
+      </rich:toolBar>
+      
+    </a4j:form>
+  </ui:define>
+</ui:composition>

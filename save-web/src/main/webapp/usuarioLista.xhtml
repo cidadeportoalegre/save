@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	template="layout/template.xhtml">
+	<ui:define name="body">
+		<h:form id="listaBotoes">
+			<rich:toolBar id="botoes">
+				
+				<rich:toolBarGroup>
+					<h:inputText id="usuarioNome" value="#{usuarioDataModel.criterioNome}" styleClass="form-control input">
+						<h:outputLabel for="usuarioNome">Nome:</h:outputLabel>
+					</h:inputText>
+				</rich:toolBarGroup>
+					<a4j:commandButton id="idFiltrar" action="#{usuarioAction.lista}" value="Pesquisar" reRender="idDataTable" image="img/lupa.svg" styleClass="btn btn-primary"/>
+				
+				<rich:toolBarGroup location="right">
+					<s:button id="criar" action="#{usuarioAction.criar}" value="+ novo usuário" rendered="#{s:hasRole('Administrador')}" styleClass="btn btn-new"/>
+				</rich:toolBarGroup>
+
+			</rich:toolBar>
+		</h:form>
+		<h:form id="listaAction">
+			<a4j:outputPanel id="idDataTable">
+				<h:outputText
+					value="Nenhum Usuário do sistema foi encontrado"
+					rendered="#{usuarioLista != null and usuarioLista.rowCount==0}" />
+				<rich:dataTable id="tbUsuario" value="#{usuarioDataModel}" var="usuario" rowClasses="richRowODD,richRowEVEN" rows="30"
+					onRowMouseOver="this.classList.add('rich-row-select');"  
+    				onRowMouseOut="this.classList.remove('rich-row-select');" onRowClick="#{usuarioAction.editar}">
+					<a4j:support event="onRowClick"  action="#{usuarioAction.editar}"/>
+					<rich:column width="10%">
+						<f:facet name="header">Nome</f:facet>
+						<h:outputText value="#{usuario.user.name}" />
+					</rich:column>
+					<rich:column width="10%">
+						<f:facet name="header">Usuário</f:facet>
+						<h:outputText value="#{usuario.user.userName}" />
+					</rich:column>
+					<rich:column width="10%">
+						<f:facet name="header">Domínio</f:facet>
+						<h:outputText value="#{usuario.user.domain}" />
+					</rich:column>
+
+		            <f:facet name="footer">
+	    	            <rich:datascroller id="tbScroller" for="tbUsuario" renderIfSinglePage="false" />
+	        	    </f:facet>
+
+				</rich:dataTable>
+			</a4j:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

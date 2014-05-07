@@ -1,0 +1,587 @@
+
+/*  
+    
+    PROCEMPA -  Empresa de Tecnologia da Informacao e Comunicacao de Porto Alegre
+    data de criacao:10/2010
+    data de versao: 11/2010
+    versao 1.0
+    Portal de Gestao
+    
+*/
+
+/* ESTRUTURAS GERAIS (SELETORES HTML) ___________________________________ */
+html, body {
+    height:100%;
+    padding:0;
+    margin:0;
+    font-family:arial,helvetica,sans-serif;
+    color: #FFFFFF;
+    text-align: center; 
+    font-size: 1em;                            /*tamanho do texto (tem de ser em .em para acessibilidade */
+background: #eee; /* Old browsers */
+
+}
+
+.fontColorLogin{
+	color: white;
+}
+
+a:link, a:visited, a:active 
+    {text-decoration:none; color:#051ca1; font-weight:bold;}         /* link normal, visitado, ativo decora������o dos links (sem decora������o, sem underline) */
+a:visited 
+    {color:navy;}                           /* cor do link visitado */
+a:hover 
+    {text-decoration:underline;}        /* decora������o do link passa ter underline (quando mouse est��� em cima do link)  */
+
+input, textarea, select{
+    border: 1px solid #BBBBBB;
+    font-family: arial, helvetica;
+    background:  #F0F8FF;
+    color: black;
+    overflow:hidden;
+    font-size:1em;
+    }
+    
+.sairLink {          
+    font-size: 1em;
+    color: white;
+}
+
+.rich-combobox-item-selected{
+    background-color: #417CFA;
+    border-color: #F0F8FF;
+    color: white;
+    font-family: arial, helvetica;
+    font-size:11px;
+    *margin-left:-10px;
+    }
+
+.rich-combobox-list-decoration, .rich-combobox-input, .rich-combobox-input-inactive, .rich-combobox-input-disabled{
+    border: 1px solid #BBB;
+    font-family: arial, helvetica;
+    background: #F0F8FF;
+    color: black;
+    font-size:11px;
+    }
+input.rich-combobox-input-disabled {
+    border-left: 1px solid #BBB;
+    border-top: 1px solid #BBB;
+}
+
+input.rich-combobox-font-disabled {
+    color: black;
+}
+
+input[type='text'][disabled],textarea[disabled],select[disabled]{
+	background: #FAFAFA;
+	}
+
+input[type='submit'], input[type='button'] {
+    background-color: #aaa;
+    color: #FFFFFF;
+    margin: 0 0 0 15px;
+    padding:3px 10px 3px 10px;
+    font-size: 1em;
+    text-align: center;  
+    font-weight: bold;  
+ /*   border-radius: 3px;  */
+    border: 1px solid #aaa;
+/*    -moz-border-radius: 3px; */ 
+    box-shadow: 0 0 0 1px rgb(255, 255, 255), 0 0 0 2px rgb(57, 83, 164);
+    -moz-box-shadow: 0 0 0 1px rgb(255, 255, 255), 0 0 0 2px rgb(57, 83, 164);
+    -webkit-box-shadow: 0 0 0 1px rgb(255, 255, 255), 0 0 0 2px rgb(57, 83, 164);
+    }
+
+input[type='submit']:hover, input[type='button']:hover {background-image:none; background-color:#838f9c;}
+
+button[type='button'][disabled], button[type='reset'][disabled], button[type='submit'][disabled], 
+
+input[type='reset'][disabled], input[type='submit'][disabled], input[type='button'][disabled] { 
+    background-color:#eee;
+    color:#444;
+    margin: 0 0 0 15px;
+    border: 1px solid #C0C0C0;
+    padding:3px 10px 3px 10px;
+    font-size: 1em;
+    text-align: center;  
+    font-weight: bold;  
+    border-radius: 3px;  
+    -moz-border-radius: 3px;  
+    box-shadow: 0 0 4px rgba(255,255,255,0.5); 
+    -moz-box-shadow: 0 0 4px rgba(255,255,255,0.5); 
+    -webkit-box-shadow: 0 0 4px rgba(255,255,255,0.5); 
+}
+
+input[type="image"] {
+	background : transparent;
+	border : 0px;
+}
+
+h1 {
+    font-family: Arial,sans-serif;
+    color: #578BB8;
+    font-size: 1.5em;
+    margin-top: 0;
+}
+
+/* ESTRUTURA INTERNA GERAL(DIVS) _____________________________________________ */
+
+#container {
+ 
+    width: 1000px;
+    text-align: left;
+    height:auto;
+    min-height:100%;
+/*    background: white url(../img/corpo_textura.gif) repeat-y left top; */
+    background: transparent;
+    margin-bottom:-60px;
+    margin: auto;
+    color: #000000;
+    margin-top:0px\9;
+    *margin-top:0px;
+    }
+    
+    html>body #container { height:auto; } /* ajuste firefox */
+
+#cabecalho {
+    top: 0px;
+    left: 0;
+    position:relative;
+    margin:auto;
+    width:990px;
+    height: 52px;
+    background:none;
+    padding:20px 0 0 0;
+    border: 0px solid #ccc;
+    display:table;
+    }
+
+#cabecalhoCadastro {
+    top: 0;
+    left: 0;
+    position: relative;
+    height: 127px;
+    background:#fff;
+    padding:0px;
+    border: 0px solid #ccc;
+    }
+
+#conteudo {
+    position:relative;
+    float:left;
+    width:93.6%;
+    height:98%;
+    margin: 0;
+    *width: auto;
+    *height:auto;
+    border:0px solid #00FF22;
+    padding:1em 2em 2em 2em;
+    *background: white\8;
+    background: white\9;
+    background: white;
+    width:93.6%\9;
+
+}
+#breadCrumb{
+    width:auto;
+    background: white;
+    margin-top: 75px;
+	font-size: 18px; 
+	margin: -60px 0px 10px 0px;
+}
+
+#rodape { 
+    position:relative;
+    margin:auto;
+    width:1000px;
+    clear:both;
+    height:0px;
+    background: transparent;
+    margin-top: 25px;
+    }
+
+    html>body #rodape { width:1000px; height:59px; }     /*  ajuste firefox  */
+    
+#limpa_rodape { clear:both; height:20px; }  /*  faz o espaco para o rodape  */
+
+
+/* CABECALHO - ESTRUTURA INTERNA _______________________________ */
+
+#cabecalho > div {
+    float: left;
+    margin-right: 20px;
+}
+
+#logo_pmpa_cor {
+    position:relative;
+    float:left;
+
+    }
+    
+#rotulo {
+    position:relative;
+    float:left;
+    margin: 12px 0 0 20px;
+    }   
+#rotulo a:link, #rotulo a:active, #rotulo a:visited, #rotulo a:hover { color:#fff;  text-shadow: 0 1px -6px rgba(0,0,0,0.6); }
+
+    
+#menu_barra { border:0px solid red; margin-left:-1px;}
+#menu_barra table { width:1001px; *margin-left:-8px;}
+#entraSai .rich-panel-body {float: right; border:0px solid red; text-align:right; margin:0; padding:0; background:none;}
+#entreSai a { font-size:0.9em;}
+#entraSai span {font-size:0.9em; font-weight:bold;}
+#entraSai .rich-panel-body  {background:none;}  
+
+/* Menu horizontal e vertical __________________________________________ */
+
+#menu { clear:top; float:right; }
+
+
+
+/* ESTILOS THEMES | SKIN | JSF __________________________________________ */    
+
+
+.tabela-sem-borda-cell {
+    border-top:0px;
+    border-bottom:0px;
+    border-left:0px;
+    border-right:0px;
+    background-color:transparent;
+    }
+
+.tableControl, .actionButtons { width: 100%; *width:80% }
+.tableControl a {   padding-left: 10px; }
+.tableControl { text-align: right; }
+
+.rich-table { width:100%; }
+
+.body { padding: 30px; }
+
+.columnHeader:hover { color: #FF6600; }
+
+.message {
+    border: 1px solid #FFCC00;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #F0F8FF;
+    list-style-type:none;
+    }
+
+.messageLogin {
+    border: 1px solid #FFCC00;
+    padding: 5px;
+    margin-top: 5px;
+    color:white;
+    margin-bottom: 5px;
+    background-color: none;
+    list-style-type:none;
+    *margin-left:-0.5px;
+    }
+/*
+.prop {
+	margin: 5px 0px 5px 0px;
+	}
+*/	
+.name {
+    vertical-align: top;
+    font-weight: bold;
+    float: left;
+    padding: 4px;
+    clear: left;
+	text-align: right;
+    }
+
+
+.value {
+    vertical-align: middle;
+    float: left;
+	text-align: left
+	}
+
+.valueDisplay {
+    vertical-align: top;
+    float: left;
+	text-align: left;
+	padding: 4px;
+	}
+
+
+.display {
+    vertical-align: top;
+    clear: left;
+	text-align: left;
+	position: absolute;
+	padding: 4px;
+	}
+
+.nameCol {
+    vertical-align: top;
+    font-weight: bold;
+    width: 200px;
+    float: left;
+    padding: 5px;
+    clear: left;
+    }
+
+.nameReduced {
+    vertical-align: top;
+    font-weight: bold;
+    width: 185px;
+    float: left;
+    padding: 5px;
+    clear: left;
+    }
+
+.valueCol {
+    vertical-align: top;
+    float: left;
+    padding: 5px;
+    clear: left;
+	text-align: left
+	}
+
+.extendedName {
+    vertical-align: top;
+    font-weight: bold;
+    width: 350px;
+    float: left;
+    padding: 5px;
+    clear: left;
+    }
+/* Solu����o para truncar colunas e exibir o tool tip */	
+.ellipsis {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 105%;
+    vertical-align: bottom;
+}
+
+img.errors { padding-right: 5px; }
+.errors input { border: 1px solid red; }
+.errors textarea { border: 1px solid red; }
+.errors select { border: 1px solid red; }
+
+.required { color: red; padding-left: 2px; }
+
+.rich-stglpanel-body { overflow: auto; } 
+
+/* cor do menu da barra de navega����o e tamanho da fonte */
+.rich-ddmenu-label, .rich-ddmenu-label-disabled { font-size:1.0em; font-weight:bold; }
+.rich-ddmenu-label { color:white; }
+.rich-ddmenu-label-select { color: white; background: none; border:0.2;}
+
+/* p/ datatables ______________________________ */
+
+.richLeft { text-align: left; }
+.richRight { text-align: right; }
+.richCenter { text-align: center; }
+.richRowODD {  background: #fff; }
+.richRowEVEN { background:#e4eaeb;
+				cursor:pointer;}
+.richInputBackground { background: #F0F8FF; }
+.richSelectedMenu { font-family: Arial,sans-serif; color: #3366FF; }
+.richOutputFont{ font-weight: bold; }
+
+/* Label agrupador  __________________________________________ */
+.tituloAgrupador {
+    font-family:Arial, Verdana, Helvetica, sans-serif;
+    font-weight:bold;
+    }
+
+/* imagens dos fundos de cabecalhos | menu | tabelas __________________________________________ */
+.rich-panel-header, .rich-table-header {border:0; font-size: 1em; background: none #eee;}
+.rich-table-headercell { font-size: 1em; }
+.rich-toolbar { background: url(../img/fundo_barra4.png) repeat-x; font-size:.8em;}
+.rich-toolbar-item { font-size: 0.9em; color:black; border:0; }
+.rich-stglpanel-header {background: url(../img/fundo_barra.png) repeat-x; font-size: 1em; }
+
+/* Barra de navega����o do home*/
+.barraMenu {border:0; margin:0; padding:0 5px; height:30px; background: none #aaa; color:white;
+*margin-top:-30px;
+}
+/* Barra de navega����o declara����o*/
+.barraNavegacao{border:0; margin:0; padding:0 5px; height:30px; background: none #aaa; color:white;
+
+}
+/* Menu que abre para baixo */
+.rich-menu-list-bg{
+	border:0; 
+	font-size:.8em;
+	background: #aaa;}
+
+/* reader da modal */
+.rich-mpnl-header  { 
+    background-color: #ccc;
+	color:#444;
+}
+
+.rich-menu-list-border {
+    border: 0px solid;
+}
+
+.rich-menu-item, .rich-menu-item a, .rich-menu-item a:hover, .rich-menu-item a:visited, .rich-menu-group, .rich-menu-group a, .rich-menu-group a:hover, .rich-menu-group a:visited {
+    color: #ffffff;
+    text-align:left
+ }
+ 
+.rich-menu-item-hover, .rich-menu-group-hover {
+    background-color:#ccc;
+    border-color: #ccc;
+	color: #444;
+}
+
+/* css do calend��rio */
+
+.rich-calendar-button {
+    background-image:url("../img/calendar.png");
+    width: 21px;
+    display:inline-block;
+    padding: 20px 0 0 0;
+    height: 0px !important;
+    margin-left: 3px;
+    }
+.rich-calendar-button:hover {    background-image:url("../img/calendar_.png");}
+
+.rich-calendar-cell,.rich-calendar-editor-btn-selected,.rich-calendar-editor-btn  {
+   color:#031f36;
+ }
+
+.rich-calendar-editor-btn-selected{
+  background:#1f7df0;
+  border:1px;
+}
+.rich-calendar-editor-btn-over{
+    background: none repeat scroll 0 0 #43abf0;
+    border-color: #FFFFFF #C4C0B9 #C4C0B9 #FFFFFF;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    padding: 1px;
+}
+
+.rich-calendar-today {
+   background-color:#43abf0;
+   color:#031f36;
+   font-weight: bold;
+}
+
+.rich-calendar-holly {
+    background-color: #E4EAEB;
+    color: #1E7AC8;
+    border:1px;
+}
+
+.rich-calendar-days {
+    color:#031f36;
+}
+.rich-calendar-hover,.rich-calendar-editor-btn-over{
+    background:#b6bdcc;
+}
+.rich-calendar-weekends {
+    color: #1E7AC8;
+}
+.rich-calendar-tool,.rich-calendar-tool-btn,.rich-calendar-toolfooter,.rich-calendar-toolheader,.rich-calendar-month {
+    background-color:#41628a; 
+    background:#41628a;
+    color:white;
+    font-color:white;
+    border-bottom-color: black;
+}
+.rich-calendar-boundary-dates {
+    color: #A0A0A0;
+}
+/* fim do css do calend��rio */
+ 
+/* Estilo da Pagina����o*/
+.rich-dtascroller-table {
+    border-width: 0px;
+    background:none;
+    height: 35px;
+    border-spacing: 4px;
+}
+.rich-datascr-act {
+    border-color: #00406b;
+    background-color:#00406b;
+    color: white;
+    font-family: Arial,Verdana,sans-serif;
+    font-size: 11px;
+    width: 20px;
+}
+
+.rich-datascr-inact {
+    border-color: #00406b; /*#006a85;*/
+    background-color:white;
+    color: #00406b;
+    font-family: Arial,Verdana,sans-serif;
+    font-size: 11px;
+    border: 1px solid;
+    width: 20px;
+}
+
+.rich-datascr-button, .rich-datascr-ctrls-separator, .rich-datascr-button-dsbld {
+    border-style: solid;
+    border-color: #00406b;
+    color: #00406b;
+    border-width: 1px;
+    cursor: pointer;
+    text-align: center;
+    width: 20px;
+    background-color:white;
+}
+
+/* Fim do Estilo da Pagina����o*/
+
+.rich-table-subheader {
+    background-color: #EBEBEB;
+}
+
+/* estilo das abas  __________________________________________ */
+.rich-tab-header {
+	font-size: 0.9em;
+	}
+.rich-tab-inactive {
+    cursor: pointer;
+    }
+.rich-tab-active {
+    cursor: hand;
+	font-weight: bold;
+    }
+.errorBox {
+	background: #f7e5e5; 
+	border-top: 1px solid #db9f9f; 
+	border-bottom: 1px solid #db9f9f;
+	margin:10px 0px;
+	padding: 3px 3px 3px 10px;
+	color: #551111;	
+	font-size:0.9em;
+	}
+.infoBox {
+	background: #5fcb5f; 
+	border-top: 1px solid #007d00; 
+	border-bottom: 1px solid #007d00;
+	margin:10px 0px;
+	padding: 3px 3px 3px 10px;
+	color: #000;
+	font-size:0.9em;
+	}
+
+.warnBox {
+	background: #FD0; 
+	border-top: 1px solid #FA0; 
+	border-bottom: 1px solid #FA0;
+	margin:10px 0px;
+	padding: 3px 3px 3px 10px;
+	color: #000;
+	font-size:0.9em;
+	}
+	
+.rich-tool-tip {
+	background-color: #eef2f8;
+	border-color: #7196c8;
+    padding: 1px;
+    font-size: 8;
+}

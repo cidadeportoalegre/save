@@ -1,0 +1,57 @@
+<a4j:outputPanel xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j" ajaxRendered="true">
+                
+	<rich:modalPanel rendered="#{showMessageAction.errorMessages}" 
+					 id="errorModalPanel" 
+					 autosized="true" 
+					 width="200" 
+					 height="100" 
+					 showWhenRendered="true" 
+					 zindex="5000">
+		<f:facet name="header">
+			<h:outputText value="Mensagem" />
+		</f:facet>
+		
+		<rich:effect event="onclick" type="Fade"/>
+		
+	    <f:facet name="controls">
+	       <h:panelGroup>
+	           <h:graphicImage value="/img/close.png" styleClass="hidelink" id="hidelinkErrorModalPanel"/>
+	           <rich:componentControl for="errorModalPanel" attachTo="hidelinkErrorModalPanel" operation="hide" event="onclick"/>
+	       </h:panelGroup>
+	   </f:facet>
+   		
+		<h:panelGrid columns="2" style="width:80%;border:0px;">
+		   <rich:toolBar itemSeparator="grid" style="background:white;">
+			  <rich:toolBarGroup location="left">
+				<h:graphicImage value="/img/avisos.png" styleClass="errors"/>
+			  </rich:toolBarGroup>
+			  <rich:toolBarGroup location="right">
+				<rich:messages level="error,warn" styleClass="errors" />
+			  </rich:toolBarGroup>
+		   </rich:toolBar>
+		</h:panelGrid>
+	
+		<table width="100%" cellspacing="1">
+			<tr>
+				<td align="center">			   
+					<h:commandButton value="Ok" type="button" onclick="javascript:close_Window();" />
+				</td>
+			</tr>
+		</table>
+
+		<script type="text/javascript">
+			<!--
+				function close_Window(){
+					win.close();
+				};
+		//-->
+		</script>
+   		
+   	</rich:modalPanel>
+</a4j:outputPanel>                

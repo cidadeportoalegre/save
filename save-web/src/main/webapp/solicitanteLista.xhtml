@@ -1,0 +1,105 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	template="layout/template.xhtml">
+	<ui:define name="body">							
+		<h:form id="listaBotoes">
+			<rich:toolBar id="botoes">
+				<rich:toolBarGroup>
+					<h:inputText id="solicitanteNome" value="#{solicitanteDataModel.criterioNome}" styleClass="form-control input">
+						<h:outputLabel for="solicitanteNome">Nome:</h:outputLabel>
+					</h:inputText>
+					<h:inputText id="solicitanteDoc" value="#{solicitanteDataModel.criterioDocumento}" styleClass="form-control input">
+						<h:outputLabel for="solicitanteDoc">Documento:</h:outputLabel>
+					</h:inputText>				
+					<a4j:commandButton id="idFiltrar" action="#{solicitanteAction.lista}" value="Busca" reRender="idDataTable" image="img/lupa.svg" styleClass="btn btn-primary"/>							
+				</rich:toolBarGroup>
+				<rich:toolBarGroup location="right">
+					<a4j:commandButton value="+ novo solicitante" title="Novo solicitante" ajaxSingle="true" immediate="true" limitToList="true"  
+						action="#{solicitanteAction.criar(solicitacao)}" styleClass="btn btn-new" rendered="#{not empty solicitanteAction.solicitacao and not empty solicitanteAction.solicitacao.id}" />
+				</rich:toolBarGroup>
+			</rich:toolBar>
+			
+		</h:form>
+		<br/><br/>
+		<h:form id="listaAction">
+			<a4j:outputPanel id="idDataTable">					
+				<h5><h:outputText
+					value="Nenhum solicitante encontrado"
+					rendered="#{solicitanteDataModel == null or solicitanteDataModel.count==0}" />
+				</h5>
+				<rich:dataTable id="tbSolicitante" value="#{solicitanteDataModel}" var="solicitante" rows="30"
+					onRowClick="#{solicitanteAction.selecionar}" onRowMouseOver="this.classList.add('rich-row-select');"  
+					  onRowMouseOut="this.classList.remove('rich-row-select');"  
+					  rendered="#{empty solicitacao.id and solicitanteDataModel != null and solicitanteDataModel.count>0}">
+					<a4j:support event="onRowClick"  action="#{solicitanteAction.selecionar}"/>
+					<rich:column width="10%">					
+						<f:facet name="header">Nome</f:facet>
+						<h:outputText value="#{solicitante.nomeSolicitante}" />
+					</rich:column>					
+					<rich:column width="10%">
+						<f:facet name="header">Telefones</f:facet>
+						<h:outputText value="#{solicitante.telefoneCel}" />
+						<br />
+						<h:outputText value="#{solicitante.telefoneCom}" />
+						<br />
+						<h:outputText value="#{solicitante.telefoneRes}" />
+					</rich:column>					
+					<rich:column width="10%">
+						<f:facet name="header">CPF</f:facet>
+						<h:outputText value="#{solicitante.cpf}" />
+					</rich:column>
+					<rich:column width="10%">
+						<f:facet name="header">RG</f:facet>
+						<h:outputText value="#{solicitante.rg}" />
+					</rich:column>	
+					<rich:column width="10%">
+						<f:facet name="header">CNPJ</f:facet>
+						<h:outputText value="#{solicitante.cnpj}" />
+					</rich:column>					
+		            <f:facet name="footer">
+	    	            <rich:datascroller id="tbScroller" for="tbSolicitante" renderIfSinglePage="false" />
+	        	    </f:facet>
+
+				</rich:dataTable>
+				<rich:dataTable id="tbSolicitanteSelecionar" value="#{solicitanteDataModel}" var="solicitante" rows="30"
+					onRowClick="#{solicitacaoAction.selecionarSolicitante(solicitante)}" onRowMouseOver="this.classList.add('rich-row-select');"  
+					  onRowMouseOut="this.classList.remove('rich-row-select');"  
+					  rendered="#{not empty solicitacao.id and solicitanteDataModel != null and solicitanteDataModel.count>0}">
+					<a4j:support event="onRowClick"  action="#{solicitacaoAction.selecionarSolicitante(solicitante)}"/>
+					<rich:column width="10%">					
+						<f:facet name="header">Nome</f:facet>
+						<h:outputText value="#{solicitante.nomeSolicitante}" />
+					</rich:column>					
+					<rich:column width="10%">
+						<f:facet name="header">Telefones</f:facet>
+						<h:outputText value="#{solicitante.telefoneCel}&lt;br/&gt;" escape ="false" rendered="#{not empty solicitacao.solicitante.telefoneCel}"/>
+						<h:outputText value="#{solicitante.telefoneRes}&lt;br/&gt;" escape ="false" rendered="#{not empty solicitacao.solicitante.telefoneRes}"/>
+						<h:outputText value="#{solicitante.telefoneCom}" rendered="#{not empty solicitacao.solicitante.telefoneCom}"/>						
+					</rich:column>					
+					<rich:column width="10%">
+						<f:facet name="header">CPF</f:facet>
+						<h:outputText value="#{solicitante.cpf}" />
+					</rich:column>
+					<rich:column width="10%">
+						<f:facet name="header">RG</f:facet>
+						<h:outputText value="#{solicitante.rg}" />
+					</rich:column>	
+					<rich:column width="10%">
+						<f:facet name="header">CNPJ</f:facet>
+						<h:outputText value="#{solicitante.cnpj}" />
+					</rich:column>					
+		            <f:facet name="footer">
+	    	            <rich:datascroller id="tbScroller" for="tbSolicitante" renderIfSinglePage="false" />
+	        	    </f:facet>
+
+				</rich:dataTable>
+			</a4j:outputPanel>
+		</h:form>	
+		
+	</ui:define>
+</ui:composition>

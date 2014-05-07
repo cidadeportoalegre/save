@@ -1,0 +1,32 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body>
+	<script>
+function tiraEspacos(texto){
+	var procura = /%20/g;
+	texto = texto.replace(procura," ");
+	return texto;
+}	
+var querystring = location.search;
+querystring = querystring.substr(1);
+var parArray = querystring.split("&");
+var param;
+param = parArray[0].split("=");
+var cod = tiraEspacos(param[1]);
+param = parArray[1].split("=");
+var nome = tiraEspacos(param[1]);
+param = parArray[2].split("=");
+var cep = tiraEspacos(param[1]);
+param = parArray[3].split("=");
+var bairro = tiraEspacos(param[1]);
+param = parArray[4].split("=");
+var nroini = tiraEspacos(param[1]);
+param = parArray[5].split("=");
+var nrofin = tiraEspacos(param[1]);
+window.opener.recebeLogr(cod, nome, cep, bairro, nroini, nrofin);
+top.close();
+</script>
+</body>
+</html>

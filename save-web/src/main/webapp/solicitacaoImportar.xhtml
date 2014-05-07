@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	template="layout/template.xhtml">
+	<ui:define name="body">
+		<h:form id="listaBotoes">
+			<rich:messages layout="table" ajaxRendered="true"/>
+
+			<rich:toolBar id="botoes">
+					
+					<h:inputText id="protocoloFalaPoa"
+						value="#{solicitacaoAction.protocoloFalaPoa}"
+						styleClass="form-control input">
+						<h:outputLabel for="protocoloFalaPoa">Protocolo Fala Porto Alegre:</h:outputLabel>
+						
+					</h:inputText>
+					<a4j:commandButton id="idFiltrar"
+						action="#{solicitacaoAction.importarSolicitacao}" value="Importar"
+						styleClass="btn btn-primary" />
+			</rich:toolBar>
+			<rich:jQuery selector="#protocoloFalaPoa" query="setMask('999999-99-99')" timing="immediate" />	
+		</h:form>
+
+	</ui:define>
+</ui:composition>

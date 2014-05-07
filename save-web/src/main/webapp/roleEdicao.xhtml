@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j" 
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib" 
+	template="layout/template.xhtml">
+	<ui:define name="body">
+		<h:form id="cadastro">
+
+			<rich:panel styleClass="semborda">
+				<h4><h:outputText value="#{role.name}" id="nome" label="Nome" size="60" /></h4>
+
+				<h:panelGrid columns="1">
+					<s:decorate template="/layout/edit.xhtml">
+						<ui:define name="label">Descrição</ui:define>
+						<h:inputText value="#{role.description}" id="description" label="Descrição" size="100"
+							maxlength="255" styleClass="form-control input"/>
+					</s:decorate>
+				</h:panelGrid>
+			</rich:panel>				
+			
+				<rich:toolBar id="botoesTop">
+					<rich:toolBarGroup location="right">
+					<h:commandButton value="Cancelar" action="#{roleAction.cancelar}" immediate="true" styleClass="btn btn-primary" />
+					<h:commandButton value="Salvar" action="#{roleAction.salvar}" rendered="#{s:hasRole('Administrador')}" styleClass="btn btn-primary" />
+					</rich:toolBarGroup>
+				</rich:toolBar>
+			
+
+		</h:form>
+	</ui:define>
+</ui:composition>

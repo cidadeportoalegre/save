@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+<head> 
+	<title>save - sistema de assistência veterinária</title>
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+	
+	<!-- estilos do framework twitter bootstrap -->
+	<link rel="stylesheet" href="stylesheet/bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="stylesheet/flat-ui.css" type="text/css" />
+	<link rel="stylesheet" href="stylesheet/demo.css" type="text/css" />
+	<!-- fim estilos do framework twitter bootstrap -->
+	
+	<link rel="stylesheet" href="stylesheet/estilo.css" type="text/css" />
+	<link rel="stylesheet" href="stylesheet/fontello.css" type="text/css" />
+	<link rel="stylesheet" href="stylesheet/fontello-codes.css" type="text/css" />
+	<link rel="stylesheet" href="stylesheet/fontello-embedded.css" type="text/css" />
+	<link rel="stylesheet" href="stylesheet/fontello-ie7.css" type="text/css" />
+	<link rel="stylesheet" href="stylesheet/fontello-ie7-codes.css" type="text/css" />
+
+
+	
+	<script language="JavaScript" src="#{facesContext.externalContext.requestContextPath}/javascript/javascript.js" type="text/JavaScript" charset="utf-8"/>	
+	<script language="JavaScript" src="#{facesContext.externalContext.requestContextPath}/javascript/jquery.maskMoney.js" type="text/JavaScript" charset="utf-8"/>
+	<script language="JavaScript" src="#{facesContext.externalContext.requestContextPath}/javascript/jquery.meio.mask.js" type="text/JavaScript" charset="utf-8"/>
+	<script language="JavaScript" type="text/JavaScript">
+		//evita o back do browser
+		window.history.forward(1);
+	</script>
+
+    <!-- Load JS here for greater good =============================-->	
+ 
+    <!-- descobrir pq menu nao funciona com jquery rodando 
+	<script src="javascript/jquery-1.8.3.min.js"></script>
+	<script src="javascript/jquery-1.4.4.min.js"></script>
+	-->
+    
+	  <script src="javascript/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="javascript/jquery.ui.touch-punch.min.js"></script>
+    <script src="javascript/bootstrap-select.js"></script>
+    <script src="javascript/jquery.tagsinput.js"></script>	
+    <script src="javascript/jquery.placeholder.js"></script>
+    <script src="javascript/application.js"></script>
+
+	
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+    <![endif]--> 
+ 
+</head>
+<body> 
+	<f:loadBundle basename="messages_pt" var="msgs"/>
+	
+	<rich:modalPanel id="panelStatus" autosized="true">  
+		<h:graphicImage url="img/loading.gif" style="border:0px;"/> 
+		
+	</rich:modalPanel> 
+	
+	<a4j:status id="statusCarregarModalPanel" 
+		onstart="Richfaces.showModalPanel('panelStatus');" 
+		onstop="#{rich:component('panelStatus')}.hide()" >
+	</a4j:status>
+	
+	<!--  abre container geral --> 
+	<div id="container"> 
+		
+		<!-- abre container do cabecalho -->
+		<div id="container-cabecalho">
+			<!-- abre cabecalho--> 
+			<div id="cabecalho"> 			
+				<ui:insert name="header">
+					<ui:include src="header.xhtml" >
+						<ui:param name="projectName" value="SAVE"/>
+					</ui:include>
+				</ui:insert>				
+			</div>    
+			<!-- fecha cabecalho-->	
+		</div>
+		<!-- fecha container do cabecalho -->
+
+
+		<!-- abre container conteudo -->
+		<div id="container-conteudo">
+			<!-- abre conteudo --> 
+			<div id="conteudo">
+					
+				<!--   abre menu  --> 
+				<div id="menu_barra">
+					<ui:insert name="menu">
+						<ui:include src="menu.xhtml"/>
+					</ui:insert>
+				</div>
+				<!--   fecha menu  -->
+				
+				<!-- abre breadcrumb-->
+				<ui:insert name="breadCrumb">
+					<ui:include src="breadCrumb.xhtml" >
+						<ui:param name="conversationStack" value="#{conversationStack}"/>
+					</ui:include>
+				</ui:insert>
+				<!-- fecha breadcrumb -->
+				
+				<!-- insere corpo -->	
+				<ui:insert name="body"/>
+					<ui:include src="/layout/modalPanelError.xhtml" />
+		
+			</div>
+			<!-- fecha conteudo -->
+		</div>
+		<!-- fecha container conteudo -->
+		
+	</div>
+	<!--  fecha container  --> 		
+		
+	<!-- abre container rodape -->
+	<div id="container-rodape">
+		<!-- abre rodape--> 
+		<div id="rodape">
+			<ui:insert name="footer">
+				<ui:include src="footer.xhtml"/>
+			</ui:insert>
+		</div>	
+		<!-- fecha rodape -->
+	</div>
+	<!-- fecha container rodape -->
+
+	
+</body>
+</html>

@@ -1,0 +1,127 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+		
+	<h:form id="menu">
+		<rich:toolBar styleClass="barraMenu" rendered="#{identity.loggedIn}">			
+			<rich:toolBarGroup location="left">
+				<rich:dropDownMenu>
+					<f:facet name="label">
+						<h:panelGroup>
+							<h:commandLink action="solicitacao" value="Solicitações" submitMode="ajax">
+								<s:conversationPropagation type="none" />
+							</h:commandLink>
+						</h:panelGroup>
+					</f:facet>
+				</rich:dropDownMenu>
+				
+				<rich:dropDownMenu>
+					<f:facet name="label">
+						<h:panelGroup>
+							<h:outputText value="Edição" />
+						</h:panelGroup>
+					</f:facet>
+					<rich:menuGroup value="Solicitações &#8193;" expanded="true">			
+						<rich:menuItem action="solicitacaoNova" value="Nova solicitação" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>
+						<rich:menuItem action="solicitacaoImportar" value="Importar solicitação" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>
+					</rich:menuGroup>
+					<rich:menuItem action="solicitante" value="Solicitantes" submitMode="ajax">
+						<s:conversationPropagation type="none" />
+					</rich:menuItem>
+				</rich:dropDownMenu>
+				
+				<rich:dropDownMenu rendered="#{s:hasRole('Administrador')}">
+					<f:facet name="label">
+						<h:panelGroup>
+							<h:outputText value="Gerenciamento" />
+						</h:panelGroup>
+					</f:facet>	
+					<rich:menuGroup value="Tabelas de apoio &#8193;" expanded="true">			
+						<rich:menuItem action="causaAgenda" value="Causa agenda" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>	
+						<rich:menuItem action="classifRiscoGrupo" value="Classificação de risco (grupo)" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>
+						<rich:menuItem action="comportamento" value="Comportamento" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>
+						<rich:menuItem action="desfechoSolicitacao" value="Desfecho de solicitação" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>
+						<rich:menuItem action="especie" value="Espécie" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>
+						<rich:menuItem action="fornecedorChip" value="Fornecedor chip" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>	
+						<rich:menuItem action="idade" value="Idade" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>					
+						<rich:menuItem action="motivoSolicitacao" value="Motivo de solicitação" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>
+						<rich:menuItem action="origemSolicitacao" value="Origem de solicitação" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>
+						<rich:menuItem action="pelagem" value="Pelagem" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>	
+						<rich:menuItem action="porte" value="Porte" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>
+						<rich:menuItem action="raca" value="Raça" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>						
+						<rich:menuItem action="situacaoSolicitacao" value="Situação de solicitação" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>
+						<rich:menuItem action="tipoSolicitante" value="Tipo de solicitante" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>
+						<rich:menuItem action="viaadocao" value="Via adoção" submitMode="ajax">
+							<s:conversationPropagation type="none" />
+						</rich:menuItem>					
+					</rich:menuGroup>	
+					<rich:menuItem action="user" value="Usuários" submitMode="ajax">
+						<s:conversationPropagation type="none" />
+					</rich:menuItem>
+					<rich:menuItem action="role" value="Perfis" submitMode="ajax" ajaxSingle="true">
+						<s:conversationPropagation type="none" />
+					</rich:menuItem>				
+				</rich:dropDownMenu>
+			</rich:toolBarGroup>
+			<rich:toolBarGroup location="right">
+				<h:outputText value="#{identity.name}"/>
+				
+				<rich:dropDownMenu>
+					<f:facet name="label">
+						<h:panelGroup>
+							<h:commandLink value="Sair" action="#{identity.logout}" rendered="#{identity.loggedIn}"/>
+						</h:panelGroup>
+					</f:facet>
+				</rich:dropDownMenu>
+				
+				<rich:dropDownMenu>
+					<f:facet name="label">
+						<h:panelGroup>
+							<h:commandLink value="Ajuda" action="ajuda">
+								<s:conversationPropagation type="none" />
+							</h:commandLink>
+						</h:panelGroup>
+					</f:facet>
+				</rich:dropDownMenu>
+				
+				
+			</rich:toolBarGroup>
+		</rich:toolBar>
+	</h:form>
+</ui:composition>

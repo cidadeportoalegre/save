@@ -1,0 +1,107 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	template="layout/template.xhtml">	
+	<ui:define name="body">
+		<rich:panel id="idPanelEditMotivoSolicitacao">
+			<rich:modalPanel id="panelEditMotivoSolicitacao" autosized="true">
+				<f:facet name="header">
+					<h:outputText value="Edição de motivo de solicitação" />
+				</f:facet>
+				<a4j:form id="idFormEditMotivoSolicitacao">
+					<rich:panel>
+						<rich:messages layout="table" ajaxRendered="true" />
+						<s:decorate template="/layout/edit.xhtml">
+							<ui:param name="labelWidth" value="80" />
+							<ui:define name="label">Descrição</ui:define>
+							<h:inputText required="true" value="#{motivoSolicitacao.descricao}"
+								id="descricao" label="Descrição" size="50" maxlength="50" styleClass="form-control input"/>
+						</s:decorate>
+						<s:decorate template="/layout/edit.xhtml">
+							<h:selectBooleanCheckbox value="#{motivoSolicitacao.ativo}"
+								title="Identifica se o motivo de solicitação está ativo no sistema" />
+							<ui:define name="label">Ativo</ui:define>
+							<ui:param name="labelWidth" value="50" />								
+						</s:decorate>
+					</rich:panel>
+					<rich:toolBar id="botoesLiderModal">
+						<rich:toolBarGroup location="left">
+						<a4j:commandButton value="Cancelar" action="#{motivoSolicitacaoAction.cancelar}" 
+							reRender="listaAction,idFormEditMotivoSolicitacao" immediate="true"
+							onclick="#{rich:component('panelEditMotivoSolicitacao')}.hide()"  styleClass="btn btn-primary"/>
+						</rich:toolBarGroup>
+						<rich:toolBarGroup location="right">
+							<a4j:commandButton value="Salvar" action="#{motivoSolicitacaoAction.salvar}" rendered="#{empty motivoSolicitacao.id}"
+								reRender="listaAction,idFormEditMotivoSolicitacao" id="salvarNovo"
+								oncomplete="if (#{facesContext.maximumSeverity==null}) #{rich:component('panelEditMotivoSolicitacao')}.show();"  styleClass="btn btn-primary" />
+							<a4j:commandButton value="Salvar" action="#{motivoSolicitacaoAction.salvar}" rendered="#{not empty motivoSolicitacao.id}"
+								reRender="listaAction" id="salvarEdicao"
+								oncomplete="if (#{facesContext.maximumSeverity==null}) #{rich:component('panelEditMotivoSolicitacao')}.hide();"  styleClass="btn btn-primary" />							
+						</rich:toolBarGroup>
+					</rich:toolBar>
+				<!-- Pressiona automaticamente os botões quando usuário pressiona enter ou esc -->
+	     		<rich:hotKey key="return" selector="#idFormEditMotivoSolicitacao" 
+					    handler="${rich:element('idFormEditMotivoSolicitacao:salvarNovo')}.click();event.stopPropagation();event.preventDefault(); return false;"
+	     				disableInInput="false" rendered="#{empty motivoSolicitacao.id}"/>
+	     						
+	     		<rich:hotKey key="return" selector="#idFormEditMotivoSolicitacao" 
+					    handler="${rich:element('idFormEditMotivoSolicitacao:salvarEdicao')}.click();event.stopPropagation();event.preventDefault(); return false;"
+	     				disableInInput="false" rendered="#{not empty motivoSolicitacao.id}"/>
+	     					     						
+				<rich:hotKey key="esc" selector="#idFormEditMotivoSolicitacao"
+			         handler="${rich:element('idFormEditMotivoSolicitacao:salvarEdicao')}.click();event.stopPropagation();event.preventDefault(); return false;"
+					 disableInInput="false"/>
+					
+				</a4j:form>
+			</rich:modalPanel>
+		</rich:panel>
+		<h:form id="pesquisaDown">
+			<rich:toolBar id="botoesDown">
+				<a4j:commandButton value="+ novo motivo" title="Novo motivo de solicitação" ajaxSingle="true" immediate="true" limitToList="true"  
+					reRender="idPanelEditMotivoSolicitacao" action="#{motivoSolicitacaoAction.criar}"
+					oncomplete="Richfaces.showModalPanel('panelEditMotivoSolicitacao')" styleClass="btn btn-new"/>	
+			</rich:toolBar>
+		</h:form>			
+		<h:form id="listaAction">
+			<a4j:outputPanel id="idDataTable">
+				<h:outputText value="Nenhum Motivo de Solicitação foi encontrado"
+					rendered="#{motivoSolicitacaoLista != null and motivoSolicitacaoLista.rowCount==0}" />
+				<rich:dataTable id="tbMotivoSolicitacao" value="#{motivoSolicitacaoLista}" var="varMotivoSolicitacao" rows="20" 
+					rendered="#{motivoSolicitacaoLista != null and motivoSolicitacaoLista.rowCount>0}" onRowMouseOver="this.classList.add('rich-row-select');"  
+    			onRowMouseOut="this.classList.remove('rich-row-select');" onRowClick="#{motivoSolicitacaoAction.editar(varMotivoSolicitacao)}">
+					<a4j:support event="onRowClick"  reRender="idPanelEditMotivoSolicitacao" action="#{motivoSolicitacaoAction.editar(varMotivoSolicitacao)}"
+							oncomplete="Richfaces.showModalPanel('panelEditMotivoSolicitacao')"/>
+					<rich:column styleClass="#{!varMotivoSolicitacao.ativo ? 'rich-row-inactive': 'default'}">
+						<f:facet name="header">Descrição</f:facet>
+						<h:outputText value="#{varMotivoSolicitacao.descricao}" />
+					</rich:column>
+					<rich:column styleClass="#{!varMotivoSolicitacao.ativo ? 'rich-row-inactive': 'default'}">
+						<f:facet name="header">Ativo</f:facet>
+						<h:outputText rendered="#{varMotivoSolicitacao.ativo}">
+							<span class="fui-check"></span>
+						</h:outputText>
+					</rich:column>
+					<rich:column styleClass="#{!varMotivoSolicitacao.ativo ? 'rich-row-inactive': 'default'}">
+						<f:facet name="header">Ultima alteração</f:facet>
+						<h:outputText value="#{varMotivoSolicitacao.operador}"/> 
+					</rich:column>						
+		            <f:facet name="footer">
+	    	            <rich:datascroller id="tbScroller" for="tbMotivoSolicitacao" renderIfSinglePage="false" >
+							<f:facet name="previous">
+								<h:outputText value="‹"/>
+							</f:facet>
+							<f:facet name="next">
+								<h:outputText value="›"/>
+							</f:facet>
+						</rich:datascroller>
+	        	    </f:facet>
+
+				</rich:dataTable>
+			</a4j:outputPanel>
+		</h:form>	
+	</ui:define>
+</ui:composition>

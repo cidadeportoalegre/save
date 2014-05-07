@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components xmlns="http://jboss.com/products/seam/components"
+  xmlns:core="http://jboss.com/products/seam/core" xmlns:async="http://jboss.com/products/seam/async"
+  xmlns:pdf="http://jboss.com/products/seam/pdf" xmlns:persistence="http://jboss.com/products/seam/persistence"
+  xmlns:security="http://jboss.com/products/seam/security" xmlns:web="http://jboss.com/products/seam/web"
+  xmlns:mail="http://jboss.com/products/seam/mail" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:excel="http://jboss.com/products/seam/excel" xmlns:document="http://jboss.com/products/seam/document"
+  xmlns:transaction="http://jboss.com/products/seam/transaction"
+  xsi:schemaLocation="http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.2.xsd
+                 http://jboss.com/products/seam/async http://jboss.com/products/seam/async-2.2.xsd
+	               http://jboss.com/products/seam/transaction http://jboss.com/products/seam/transaction-2.2.xsd
+                 http://jboss.com/products/seam/persistence http://jboss.com/products/seam/persistence-2.2.xsd 
+                 http://jboss.com/products/seam/bpm http://jboss.com/products/seam/bpm-2.2.xsd
+                 http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.2.xsd
+                 http://jboss.com/products/seam/mail http://jboss.com/products/seam/mail-2.2.xsd
+                 http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.2.xsd
+                 http://jboss.com/products/seam/document http://jboss.com/products/seam/document-2.2.xsd                 
+                 http://jboss.com/products/seam/excel http://jboss.com/products/seam/excel-2.2.xsd">
+
+  <core:init jndi-pattern="save/#{ejbName}/local" debug="true" />
+
+  <core:manager concurrent-request-timeout="4000"
+    conversation-id-parameter="cid" default-flush-mode="MANUAL"
+    conversation-timeout="120000" parent-conversation-id-parameter="pid" />
+
+  <persistence:managed-persistence-context
+    auto-create="true" name="entityManager" persistence-unit-jndi-name="java:/saveEntityManagerFactory" />
+
+  <transaction:ejb-transaction />
+
+  <event type="org.jboss.seam.security.notLoggedIn">
+    <action execute="#{redirect.captureCurrentView}" />
+  </event>
+
+  <event type="org.jboss.seam.security.loginSuccessful">
+    <action execute="#{redirect.returnToCapturedView}" />
+  </event>
+
+  <security:identity authenticate-method="#{authenticatorAction.authenticate}" />
+
+  <security:jpa-identity-store name="jpaIdentityStore"
+    role-class="br.com.procempa.arquitetura.seguranca.entidade.Role"
+    user-class="br.com.procempa.arquitetura.seguranca.entidade.User" />
+
+  <security:identity-manager identity-store="#{jpaIdentityStore}" />
+
+  <security:jpa-permission-store
+    user-permission-class="br.com.procempa.arquitetura.seguranca.entidade.AccountPermission" />
+
+  <component class="org.jboss.seam.faces.FacesMessages" name="facesMessages"
+    scope="STATELESS" />
+
+  <mail:mail-session session-jndi-name="java:/MailSAVE" />
+
+  <async:quartz-dispatcher />
+
+  <event type="org.jboss.seam.postInitialization">
+<!--
+    <action execute="#{schedulerController.startImportScheduler('0 0/10 
+      * * * ?')}"/>  executa o import de solicitações a cada 10 min  
+    <action
+      execute="#{schedulerController.startImportScheduler('0 30 8 * * ?')}" />
+    <action
+      execute="#{schedulerController.startImportScheduler('0 0 10 * * ?')}" />
+    <action
+      execute="#{schedulerController.startImportScheduler('0 30 11 * * ?')}" />
+    <action
+      execute="#{schedulerController.startImportScheduler('0 30 13 * * ?')}" />
+    <action
+      execute="#{schedulerController.startImportScheduler('0 0 15 * * ?')}" />
+    <action
+      execute="#{schedulerController.startImportScheduler('0 30 16 * * ?')}" />
+-->
+  </event>
+
+  <document:document-store use-extensions="false" />
+
+  <import>org.jboss.seam.excel.exporter</import>
+
+</components>

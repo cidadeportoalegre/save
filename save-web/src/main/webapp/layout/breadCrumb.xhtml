@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:rich="http://richfaces.org/rich"
+  xmlns:f="http://java.sun.com/jsf/core">
+
+  <!--   abre breadCrumb  -->
+  <rich:panel id="breadCrumb">
+    <h:form prependId="false">
+      <div class="caminho">
+        <h:outputText id="inicio"
+          rendered="#{not empty conversationStack}" />
+        <ui:repeat value="#{conversationStack}" var="entry">
+          <h:commandLink value="#{entry.description}"
+            action="#{entry.select}" rendered="#{not entry.current}" />
+          <h:outputText value=" > " rendered="#{not entry.current}" />
+        </ui:repeat>
+      </div>
+    </h:form>
+    <div class="titulo-pagina">
+      <ui:repeat value="#{conversationStack}" var="entry">
+        <h:outputText value="#{entry.description}"
+          rendered="#{entry.current}" />
+      </ui:repeat>
+      <!--Protocolo da solicitacao exibido somente na edicao da solicitacao-->
+      <h:outputText value=" #{solicitacao.protocolo}"
+        rendered="#{view.viewId eq '/solicitacaoEdicao.xhtml'}"></h:outputText>
+      <!--Nome do solicitante exibido somente na edicao do solicitante-->
+      <h:outputText value=" #{solicitante.nomeSolicitante}"
+        rendered="#{view.viewId eq '/solicitanteEdicao.xhtml'}"></h:outputText>
+
+    </div>
+  </rich:panel>
+  <!--   fecha breadCrumb  -->
+</ui:composition>

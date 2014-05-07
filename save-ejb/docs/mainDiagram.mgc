@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class name="br.com.procempa.save.entity.Especie" x="624" y="336">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="br.com.procempa.save.entity.ApoioAbstract"/>
+    </Class>
+    <Class name="br.com.procempa.save.entity.TipoSolicitante" x="301" y="258">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="br.com.procempa.save.entity.ApoioAbstract"/>
+    </Class>
+    <Class name="br.com.procempa.save.entity.Idade" x="752" y="345">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="br.com.procempa.save.entity.ApoioAbstract"/>
+    </Class>
+    <Class name="br.com.procempa.save.entity.ApoioAbstract" x="628" y="119">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="br.com.procempa.save.entity.Porte" x="552" y="334">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="br.com.procempa.save.entity.ApoioAbstract"/>
+    </Class>
+    <Class name="br.com.procempa.save.entity.FornecedorChip" x="1266" y="188">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="br.com.procempa.save.entity.ApoioAbstract"/>
+    </Class>
+    <Class name="br.com.procempa.save.entity.Raca" x="1001" y="180">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="br.com.procempa.save.entity.ApoioAbstract"/>
+    </Class>
+    <Class name="br.com.procempa.save.entity.Animal" x="572" y="494">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="br.com.procempa.save.entity.Raca"
+            endpointName="raca" kind="Simple"/>
+        <Association
+            destinationClassName="br.com.procempa.save.entity.Comportamento"
+            endpointName="comportamento" kind="Simple"/>
+        <Association
+            destinationClassName="br.com.procempa.save.entity.Porte"
+            endpointName="porte" kind="Simple"/>
+        <Association
+            destinationClassName="br.com.procempa.save.entity.Idade"
+            endpointName="idade" kind="Simple"/>
+        <Association
+            destinationClassName="br.com.procempa.save.entity.Pelagem"
+            endpointName="pelagem" kind="Simple"/>
+        <Association
+            destinationClassName="br.com.procempa.save.entity.ViaAdocao"
+            endpointName="viaAdocao" kind="Simple"/>
+        <Association
+            destinationClassName="br.com.procempa.save.entity.FornecedorChip"
+            endpointName="fornecedorChip" kind="Simple"/>
+        <Association
+            destinationClassName="br.com.procempa.save.entity.Especie"
+            endpointName="especie" kind="Simple"/>
+    </Class>
+    <Class name="br.com.procempa.save.entity.Comportamento" x="412" y="333">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="br.com.procempa.save.entity.ApoioAbstract"/>
+    </Class>
+    <Class name="br.com.procempa.save.entity.CausaAgenda" x="327" y="181">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="br.com.procempa.save.entity.ApoioAbstract"/>
+    </Class>
+    <Class name="br.com.procempa.save.entity.Pelagem" x="858" y="179">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="br.com.procempa.save.entity.ApoioAbstract"/>
+    </Class>
+    <Class name="br.com.procempa.save.entity.Relacao" x="292" y="531">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="br.com.procempa.save.entity.Solicitante"
+            endpointName="solicitante" kind="Simple"/>
+        <Association
+            destinationClassName="br.com.procempa.save.entity.TipoSolicitante"
+            endpointName="tipoSolicitante" kind="Simple"/>
+        <Association
+            destinationClassName="br.com.procempa.save.entity.Animal"
+            endpointName="animal" kind="Simple"/>
+    </Class>
+    <Class name="br.com.procempa.save.entity.ViaAdocao" x="1123" y="187">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="br.com.procempa.save.entity.ApoioAbstract"/>
+    </Class>
+    <Class name="br.com.procempa.save.entity.Solicitante" x="45" y="261">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="br.com.procempa.save.entity.TipoSolicitante"
+            endpointName="tipoSolicitante" kind="Simple"/>
+    </Class>
+</ClassDiagram>

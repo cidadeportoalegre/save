@@ -1,0 +1,58 @@
+<p:document xmlns:p="http://jboss.com/products/seam/pdf"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core" 
+  xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:c="http://java.sun.com/jstl/core"
+  orientation="landscape"
+  title="Relatório de Solicitações" >
+  <f:facet name="header">
+    <p:font size="10" style="bold">
+      
+      <p:header borderWidth="0">
+        <p:table columns="2" widths="2 1" headerRows="0" widthPercentage="100" spacingAfter="10">
+          <p:cell borderWidth="0" borderWidthBottom="1" verticalAlignment="middle"><p:font size="14" style="bold">Solicitações</p:font></p:cell>
+          <p:cell borderWidth="0" borderWidthBottom="1" verticalAlignment="middle"><p:image alignment="right" value="/img/save-seda-logo.png"/></p:cell>
+        </p:table>
+        <p:paragraph>
+          <p:html><font size="8pt">Filtros aplicados na consulta:<BR/>#{solicitacaoDataModel.filtrosDescricao}</font></p:html>
+        </p:paragraph>
+      </p:header>
+      
+      <p:footer borderWidth="0" borderWidthTop="1" alignment="center" borderColor="gray">
+        <p:font size="8" style="bold">
+          <p:text value="#{session.lastAccessedTime}"><s:convertDateTime pattern="dd/MM/yyyy" /></p:text>
+          <p:text value="   -   Página  "/><p:pageNumber/>
+        </p:font>
+      </p:footer>
+    </p:font>
+  </f:facet>
+  
+  <p:table columns="7" headerRows="1" widthPercentage="100" spacingBefore="500" widths="1.1 1 1 2 2 1.5 3" >
+    <p:font style="bold" size="10">
+    <p:cell borderWidth="0" borderWidthBottom="1" verticalAlignment="bottom">Protocolo</p:cell>
+    <p:cell borderWidth="0" borderWidthBottom="1" verticalAlignment="bottom">Importação</p:cell>
+    <p:cell borderWidth="0" borderWidthBottom="1" verticalAlignment="bottom">Situação</p:cell>
+    <p:cell borderWidth="0" borderWidthBottom="1" verticalAlignment="bottom">Motivo da Solicitação</p:cell>
+    <p:cell borderWidth="0" borderWidthBottom="1" verticalAlignment="bottom">Solicitante</p:cell>
+    <p:cell borderWidth="0" borderWidthBottom="1" verticalAlignment="bottom" horizontalAlignment="center">Telefones</p:cell>
+    <p:cell borderWidth="0" borderWidthBottom="1" verticalAlignment="bottom">Endereço</p:cell>
+    </p:font>
+    <c:forEach var="varSolicitacao" items="#{solicitacaoAction.reportSolicitacaoData}" varStatus="indice">
+      <p:font size="10">
+      <p:cell borderWidth="0" noWrap="true" grayFill="#{indice.index mod 2 eq 0 ? '1':'.85'}">#{varSolicitacao.protocoloFalapoa}#{varSolicitacao.protocoloMp}#{varSolicitacao.protocoloPa}</p:cell>
+      <p:cell borderWidth="0" grayFill="#{indice.index mod 2 eq 0 ? '1':'.85'}"><p:text value="#{varSolicitacao.dataSolicitacao.time}"><s:convertDateTime pattern="dd/MM/yyyy" /></p:text></p:cell>
+      <p:cell borderWidth="0" grayFill="#{indice.index mod 2 eq 0 ? '1':'.85'}">#{varSolicitacao.situacaoSolicitacao.descricao}</p:cell>
+      <p:cell borderWidth="0" grayFill="#{indice.index mod 2 eq 0 ? '1':'.85'}">#{varSolicitacao.motivoSolicitacao.descricao}</p:cell>
+      <p:cell borderWidth="0" grayFill="#{indice.index mod 2 eq 0 ? '1':'.85'}">#{varSolicitacao.solicitante.nomeSolicitante}</p:cell>
+      <p:cell borderWidth="0" grayFill="#{indice.index mod 2 eq 0 ? '1':'.85'}">
+        <p:list>
+          <p:listItem>#{varSolicitacao.solicitante.telefoneRes}</p:listItem>
+          <p:listItem>#{varSolicitacao.solicitante.telefoneCel}</p:listItem>
+          <p:listItem>#{varSolicitacao.solicitante.telefoneCom}</p:listItem>
+        </p:list>
+      </p:cell>
+      <p:cell borderWidth="0" grayFill="#{indice.index mod 2 eq 0 ? '1':'.85'}">#{varSolicitacao.enderecoOcorrencia.enderecoResumido}</p:cell>
+      </p:font>
+    </c:forEach>
+  </p:table>
+</p:document>

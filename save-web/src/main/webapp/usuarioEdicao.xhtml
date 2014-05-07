@@ -1,0 +1,94 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j" 
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib" 
+	template="layout/template.xhtml">
+	<ui:define name="body">
+
+		<h:form id="cadastro">
+
+			<rich:panel>
+				<h:panelGrid columns="1" id="pnlPesquisa" styleClass="semborda" >
+					<s:decorate template="/layout/edit.xhtml">
+						<ui:define name="label">Usuário (login na rede PMPA)</ui:define>
+						<h:inputText label="Usuário (login na rede PMPA)" value="#{usuario.user.userName}" id="idUsuario"
+							required="true" size="60" maxlength="100" styleClass="form-control input"/>
+					</s:decorate>
+					<s:decorate template="/layout/edit.xhtml">
+							<ui:define name="label">Domínio</ui:define>
+							<h:inputText label="Domínio" value="#{usuario.user.domain}" id="idDomain"
+								required="true" size="30" maxlength="100"  styleClass="form-control input" />
+					</s:decorate>
+					<a4j:commandButton id="btnGetUser" value="Verificar usuário"
+						action="#{usuarioAction.verificarUsuario}" rendered="#{empty usuario.user.name}"
+						title="Busca informações no LDAP para o usuário" reRender="pnlOut, pnlPesquisa, botoesTop, botoesDown"  styleClass="btn btn-primary"/>
+				</h:panelGrid>
+			</rich:panel>
+
+					
+					<rich:panel id="pnlOut">
+					<h:panelGrid id="pnlDados" columns="1" rendered="#{not empty usuario.user.name}"  styleClass="semborda">
+
+						<s:decorate template="/layout/edit.xhtml">
+							<ui:define name="label">Nome completo</ui:define>
+							<h:inputText label="Nome completo" value="#{usuario.user.name}" id="idNome"
+								required="true" size="60" maxlength="100" styleClass="form-control input"/>
+						</s:decorate>
+
+						<s:decorate template="/layout/edit.xhtml">
+							<ui:define name="label">Matrícula</ui:define>
+							<h:inputText label="Matrícula" value="#{usuario.user.matricula}" id="idMatricula"
+								size="12" maxlength="10" styleClass="form-control input" />
+							<rich:jQuery selector="#idMatricula" query="setMask('9999999999')" timing="immediate" />
+						</s:decorate>
+						<s:decorate template="/layout/edit.xhtml">
+							<ui:define name="label">E-mail</ui:define>
+							<h:inputText label="E-mail" value="#{usuario.user.email}" id="idEmail"
+								required="true" size="50" maxlength="100"  styleClass="form-control input"/>
+						</s:decorate>
+
+						<s:decorate template="/layout/edit.xhtml">
+							<ui:define name="label">Telefone</ui:define>
+							<h:inputText label="Telefone" value="#{usuario.user.telefone}" id="idTelefone"
+								size="15" maxlength="20" styleClass="form-control input" />
+							<rich:jQuery selector="#idTelefone" query="setMask('phone')" timing="immediate" />
+						</s:decorate>
+
+                                                                                                                
+						<rich:listShuttle id="listShuttle" sourceValue="#{usuarioAction.fullRoleList}"
+							targetValue="#{usuario.user.roleList}" var="role" sourceCaptionLabel="Perfis disponíveis"
+							listsHeight="150px" sourceListWidth="370" targetListWidth="370"							
+							targetCaptionLabel="Perfis vinculados" orderControlsVisible="false" showButtonLabels="false"
+							fastOrderControlsVisible="false" rendered="#{s:hasRole('Administrador')}">
+							<rich:column>
+								<h:outputText value="#{role.name}"></h:outputText>
+							</rich:column>
+							<s:convertEntity />
+						</rich:listShuttle>
+
+						<rich:dataTable id="tbRoles" value="#{usuario.usuario.roleList}" var="role" 
+							rendered="#{not (s:hasRole('Administrador'))}">
+							<rich:column>
+								<f:facet name="header">Perfis</f:facet>
+								<h:outputText value="#{role.name}" />
+							</rich:column>
+						</rich:dataTable>						
+					</h:panelGrid>
+				</rich:panel>
+					
+			<rich:toolBar id="botoesTop">
+					<h:commandButton value="× excluir usuário" action="#{usuarioAction.excluir}" rendered="#{usuarioAction.verificou and s:hasRole('Administrador')}"  styleClass="btn btn-new"/>
+
+				<rich:toolBarGroup location="right">
+					<h:commandButton value="Cancelar" action="#{usuarioAction.cancelar}" immediate="true" styleClass="btn btn-primary"/>
+					<h:commandButton value="Salvar" action="#{usuarioAction.salvar}" rendered="#{usuarioAction.verificou and s:hasRole('Administrador')}" styleClass="btn btn-primary"/>
+				</rich:toolBarGroup>
+
+			
+			</rich:toolBar>
+		</h:form>
+	</ui:define>
+</ui:composition>

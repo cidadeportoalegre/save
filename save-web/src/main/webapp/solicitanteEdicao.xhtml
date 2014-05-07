@@ -1,0 +1,160 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:rich="http://richfaces.org/rich"
+  xmlns:s="http://jboss.com/products/seam/taglib"
+  template="layout/template.xhtml">
+  <ui:define name="body">
+
+    <a4j:form id="formSolicitanteAction">
+      <rich:panel id="idDadosSolicitante">
+        <h:panelGrid columns="2" styleClass="duascolunas">
+          CPF <h:outputText value="#{solicitante.cpf}" />
+          RG <h:outputText value="#{solicitante.rg}" />
+          CNPJ <h:outputText value="#{solicitante.cnpj}" />
+          CEP <h:outputText value="#{solicitante.endereco.cep}" />
+          Endereço <h:outputText value="#{solicitante.endereco.logradouro}, #{solicitante.endereco.numero} / #{solicitante.endereco.complemento}" />
+          Bairro <h:outputText value="#{solicitante.endereco.bairro}" />
+          Telefone celular <h:outputText value="#{solicitante.telefoneCel}" />
+          Telefone comercial <h:outputText value="#{solicitante.telefoneCom}" />
+          Telefone residencial <h:outputText
+            value="#{solicitante.telefoneRes}" />
+          <rich:panel>
+               Observações <br />
+            <a4j:commandButton value="editar" title="Editar solicitante"
+              styleClass="btn btn-primary"
+              oncomplete="Richfaces.showModalPanel('panelEditSolicitante')"
+              reRender="idPanelEditSolicitante" />
+          </rich:panel>
+          <h:outputText value="#{solicitante.observacao}" />
+        </h:panelGrid>
+      </rich:panel>
+    </a4j:form>
+
+    <h:panelGrid id="idPanelEditSolicitante">
+      <rich:modalPanel id="panelEditSolicitante" autosized="true">
+        <f:facet name="header">
+          <h:outputText value="Edição de Observação de Solicitante" />
+        </f:facet>
+        <a4j:form id="idFormEditSolicitante">
+          <rich:panel>
+            <rich:messages layout="table" ajaxRendered="true"
+              style="color:red;text-align:left;" />
+            <s:decorate template="/layout/edit.xhtml">
+              <ui:param name="labelWidth" value="80" />
+              <ui:define name="label">Observação</ui:define>
+              <h:inputTextarea value="#{solicitante.observacao}"
+                id="observacao" styleClass="form-control input-sm" />
+            </s:decorate>
+          </rich:panel>
+          
+          <rich:toolBar id="botoesLiderModal">
+            <rich:toolBarGroup location="left">
+              <a4j:commandButton value="Cancelar"
+                action="#{solicitanteAction.cancelarEdicao}"
+                reRender="listaAction,idDadosSolicitante"
+                immediate="true"
+                onclick="#{rich:component('panelEditSolicitante')}.hide()"
+                styleClass="btn btn-primary" id="cancelar" />
+            </rich:toolBarGroup>
+            <rich:toolBarGroup location="right">
+              <a4j:commandButton value="Salvar"
+                action="#{solicitanteAction.salvarEdicao}"
+                reRender="listaAction,idDadosSolicitante" id="salvar"
+                oncomplete="if (#{facesContext.maximumSeverity==null}) #{rich:component('panelEditSolicitante')}.hide();"
+                styleClass="btn btn-primary" />
+            </rich:toolBarGroup>
+          </rich:toolBar>
+          
+          <!-- Pressiona automaticamente os botões quando usuário pressiona enter ou esc -->
+          <rich:hotKey key="return" selector="#idFormEditSolicitante"
+            handler="${rich:element('idFormEditSolicitante:salvar')}.click();event.stopPropagation();event.preventDefault(); return false;"
+            disableInInput="false"
+            rendered="#{not empty solicitante.id}" />
+
+          <rich:hotKey key="esc" selector="#idFormEditSolicitante"
+            handler="${rich:element('idFormEditSolicitante:cancelar')}.click();event.stopPropagation();event.preventDefault(); return false;"
+            disableInInput="false" />
+        </a4j:form>
+      </rich:modalPanel>
+    </h:panelGrid>
+
+
+
+    <h:form id="listaAction">
+      <a4j:outputPanel id="idDataTable">
+        <h4>Solicitações</h4>
+        <!-- possivel fazer com links para as respectivas solicitacoes? -->
+        <h5>
+          <h:outputText value="Nenhuma solicitação encontrada"
+            rendered="#{solicitacaoLista == null or solicitacaoLista.rowCount==0}"
+            styleClass="" />
+        </h5>
+
+        <rich:dataTable id="tbSolicitacao" value="#{solicitacaoLista}"
+          var="solicitacao" rows="10"
+          rendered="#{solicitacaoLista != null or solicitacaoLista.rowCount>0}"
+          onRowClick="#{solicitacaoAction.editar(solicitacao)}"
+          onRowMouseOver="this.classList.add('rich-row-select');"
+          onRowMouseOut="this.classList.remove('rich-row-select');">
+          <a4j:support event="onRowClick"
+            action="#{solicitacaoAction.editar(solicitacao)}" />
+          <rich:column width="10%"
+            styleClass="#{solicitacao.situacaoSolicitacao.descricao eq solicitacaoAction.getSituacaoDestacada() ? 'richRowEVEN': 'default'}"
+            sortBy="#{solicitacao.protocolo}">
+            <f:facet name="header">Protocolo</f:facet>
+            <h:outputText value="#{solicitacao.protocolo}" />
+          </rich:column>
+          <rich:column width="10%"
+            styleClass="#{solicitacao.situacaoSolicitacao.descricao eq solicitacaoAction.getSituacaoDestacada() ? 'richRowEVEN': 'default'}"
+            sortBy="#{solicitacao.dataSolicitacao.time}"
+            sortOrder="DESCENDING">
+            <f:facet name="header">Solicitado em</f:facet>
+            <h:outputText value="#{solicitacao.dataSolicitacao.time}">
+              <s:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+          </rich:column>
+          <rich:column width="40%"
+            styleClass="#{solicitacao.situacaoSolicitacao.descricao eq solicitacaoAction.getSituacaoDestacada() ? 'richRowEVEN': 'default'}">
+            <f:facet name="header">Relato do solicitante</f:facet>
+            <h:outputText value="#{solicitacao.relatoSolicitanteResumo}">
+            </h:outputText>
+          </rich:column>
+          <rich:column width="10%"
+            styleClass="#{solicitacao.situacaoSolicitacao.descricao eq solicitacaoAction.getSituacaoDestacada() ? 'richRowEVEN': 'default'}"
+            sortBy="#{solicitacao.situacaoSolicitacao.descricao}">
+            <f:facet name="header">Situação</f:facet>
+            <h:outputText
+              value="#{solicitacao.situacaoSolicitacao.descricao}">
+            </h:outputText>
+          </rich:column>
+          <f:facet name="footer">
+            <rich:datascroller id="tbScroller" for="tbSolicitacao"
+              renderIfSinglePage="false">
+              <f:facet name="previous">
+                <h:outputText value="‹" />
+              </f:facet>
+              <f:facet name="next">
+                <h:outputText value="›" />
+              </f:facet>
+            </rich:datascroller>
+          </f:facet>
+
+        </rich:dataTable>
+      </a4j:outputPanel>
+    </h:form>
+
+    <h:form id="listaActionAnimais">
+      <a4j:outputPanel id="idDataTableAnimais">
+        <h4>Animais</h4>
+        <h5>
+          <h:outputText
+            value="Nenhum animal cadastrado para este solicitante" />
+        </h5>
+      </a4j:outputPanel>
+    </h:form>
+
+  </ui:define>
+</ui:composition>

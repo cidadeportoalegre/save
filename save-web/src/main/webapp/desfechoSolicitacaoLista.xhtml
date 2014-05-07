@@ -1,0 +1,120 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	template="layout/template.xhtml">	
+	<ui:define name="body">
+		<rich:panel id="idPanelEditDesfechoSolicitacao">
+			<rich:modalPanel id="panelEditDesfechoSolicitacao"  autosized="true">
+				<f:facet name="header">
+					<h:outputText value="Edição de desfecho de solicitação" />
+				</f:facet>
+				<a4j:form id="idFormEditDesfechoSolicitacao">
+					<rich:panel>
+						<rich:messages layout="table" ajaxRendered="true"
+							style="color:red;text-align:left;" />
+						<s:decorate template="/layout/edit.xhtml">
+							<ui:param name="labelWidth" value="160" />
+							<ui:define name="label">Descrição</ui:define>
+							<h:inputText required="true" value="#{desfechoSolicitacao.descricao}"
+								id="descricao" label="Descrição" size="50" maxlength="50" styleClass="form-control input" />
+						</s:decorate>
+						<s:decorate template="/layout/edit.xhtml">
+							<h:selectBooleanCheckbox value="#{desfechoSolicitacao.encerraAutomatico156}"
+								title="Identifica se a solicitação encerra em automático no 156" />
+							<ui:define name="label">Encerra automaticamente no 156</ui:define>
+							<ui:param name="labelWidth" value="247" />								
+						</s:decorate>
+						<s:decorate template="/layout/edit.xhtml">
+							<h:selectBooleanCheckbox value="#{desfechoSolicitacao.ativo}"
+								title="Identifica se o desfecho de solicitação está ativo no sistema" />
+							<ui:define name="label">Ativo</ui:define>
+							<ui:param name="labelWidth" value="50" />								
+						</s:decorate>
+					</rich:panel>
+					<rich:toolBar id="botoesLiderModal">
+						<rich:toolBarGroup location="left">
+							<a4j:commandButton value="Cancelar" action="#{desfechoSolicitacaoAction.cancelar}" 
+								reRender="listaAction,idFormEditDesfechoSolicitacao" immediate="true"
+								onclick="#{rich:component('panelEditDesfechoSolicitacao')}.hide()" styleClass="btn btn-primary"/>
+						</rich:toolBarGroup>
+						<rich:toolBarGroup location="right">
+							<a4j:commandButton value="Salvar" action="#{desfechoSolicitacaoAction.salvar}" rendered="#{empty desfechoSolicitacao.id}"
+								reRender="listaAction,idFormEditDesfechoSolicitacao" id="salvarNovo"
+								oncomplete="if (#{facesContext.maximumSeverity==null}) #{rich:component('panelEditDesfechoSolicitacao')}.show();" styleClass="btn btn-primary"/>
+							<a4j:commandButton value="Salvar" action="#{desfechoSolicitacaoAction.salvar}" rendered="#{not empty desfechoSolicitacao.id}"
+								reRender="listaAction" id="salvarEdicao"
+								oncomplete="if (#{facesContext.maximumSeverity==null}) #{rich:component('panelEditDesfechoSolicitacao')}.hide();" styleClass="btn btn-primary"/>							
+						</rich:toolBarGroup>
+					</rich:toolBar>
+				<!-- Pressiona automaticamente os botões quando usuário pressiona enter ou esc -->
+	     		<rich:hotKey key="return" selector="#idFormEditDesfechoSolicitacao" 
+					    handler="${rich:element('idFormEditDesfechoSolicitacao:salvarNovo')}.click();event.stopPropagation();event.preventDefault(); return false;"
+	     				disableInInput="false" rendered="#{empty desfechoSolicitacao.id}"/>
+	     						
+	     		<rich:hotKey key="return" selector="#idFormEditDesfechoSolicitacao" 
+					    handler="${rich:element('idFormEditDesfechoSolicitacao:salvarEdicao')}.click();event.stopPropagation();event.preventDefault(); return false;"
+	     				disableInInput="false" rendered="#{not empty desfechoSolicitacao.id}"/>
+	     					     						
+				<rich:hotKey key="esc" selector="#idFormEditDesfechoSolicitacao"
+			         handler="${rich:element('idFormEditDesfechoSolicitacao:salvarEdicao')}.click();event.stopPropagation();event.preventDefault(); return false;"
+					 disableInInput="false"/>
+					
+				</a4j:form>
+			</rich:modalPanel>
+		</rich:panel>
+		<h:form id="pesquisaDown">
+			<rich:toolBar id="botoesDown">
+				<a4j:commandButton value="+ novo desfecho" title="Novo desfecho de solicitação" ajaxSingle="true" immediate="true" limitToList="true"  
+					reRender="idPanelEditDesfechoSolicitacao" action="#{desfechoSolicitacaoAction.criar}"
+					oncomplete="Richfaces.showModalPanel('panelEditDesfechoSolicitacao')"  styleClass="btn btn-new" />	
+			</rich:toolBar>
+		</h:form>				
+		<h:form id="listaAction">
+			<a4j:outputPanel id="idDataTable">
+				<h:outputText value="Nenhum Desfecho de Solicitação foi encontrado"
+					rendered="#{desfechoSolicitacaoLista != null and desfechoSolicitacaoLista.rowCount==0}" />
+				<rich:dataTable id="tbDesfechoSolicitacao" value="#{desfechoSolicitacaoLista}" var="varDesfechoSolicitacao" rows="20" 
+					rendered="#{desfechoSolicitacaoLista != null and desfechoSolicitacaoLista.rowCount>0}"  onRowMouseOver="this.classList.add('rich-row-select');"  
+    			onRowMouseOut="this.classList.remove('rich-row-select');" onRowClick="#{desfechoSolicitacaoAction.editar(varDesfechoSolicitacao)}">
+					<a4j:support event="onRowClick"  action="#{desfechoSolicitacaoAction.editar(varDesfechoSolicitacao)}" 
+						oncomplete="Richfaces.showModalPanel('panelEditDesfechoSolicitacao')" reRender="idPanelEditDesfechoSolicitacao"/>					
+					<rich:column styleClass="#{!varDesfechoSolicitacao.ativo ? 'rich-row-inactive': 'default'}">
+						<f:facet name="header">Descrição</f:facet>
+						<h:outputText value="#{varDesfechoSolicitacao.descricao}" />
+					</rich:column>
+					<rich:column styleClass="#{!varDesfechoSolicitacao.ativo ? 'rich-row-inactive': 'default'}">
+						<f:facet name="header">Encerra protocolo automaticamente no 156</f:facet>
+						<h:outputText rendered="#{varDesfechoSolicitacao.encerraAutomatico156}">
+							<span class="fui-check"></span>
+						</h:outputText>
+					</rich:column>					
+					<rich:column styleClass="#{!varDesfechoSolicitacao.ativo ? 'rich-row-inactive': 'default'}">
+						<f:facet name="header">Ativa</f:facet>
+						<h:outputText rendered="#{varDesfechoSolicitacao.ativo}">
+							<span class="fui-check"></span>
+						</h:outputText>
+					</rich:column>
+					<rich:column styleClass="#{!varDesfechoSolicitacao.ativo ? 'rich-row-inactive': 'default'}">
+						<f:facet name="header">Ultima alteração</f:facet>
+						<h:outputText value="#{varDesfechoSolicitacao.operador}"/> 
+					</rich:column>						
+		            <f:facet name="footer">
+	    	            <rich:datascroller id="tbScroller" for="tbDesfechoSolicitacao" renderIfSinglePage="false" >
+							<f:facet name="previous">
+								<h:outputText value="‹"/>
+							</f:facet>
+							<f:facet name="next">
+								<h:outputText value="›"/>
+							</f:facet>
+						</rich:datascroller>
+	        	    </f:facet>
+
+				</rich:dataTable>
+			</a4j:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

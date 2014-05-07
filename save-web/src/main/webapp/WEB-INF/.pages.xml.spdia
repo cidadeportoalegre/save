@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram model-entity="SeamPagesDiagram">
+ <item ID="*" NAME="*" PATH="*" SHAPE="24,17,0,0" TYPE="page" model-entity="SeamPagesDiagramItem">
+  <output ID="/home.xhtml" NAME="output" PATH="/home.xhtml"
+   TARGET="#xhome.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/ajuda.xhtml" NAME="output1" PATH="/ajuda.xhtml"
+   TARGET="#xajuda.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/usuarioLista.xhtml" NAME="output2"
+   PATH="/usuarioLista.xhtml" TARGET="#xusuarioLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/roleLista.xhtml" NAME="output3" PATH="/roleLista.xhtml"
+   TARGET="#xroleLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/comportamentoLista.xhtml" NAME="output4"
+   PATH="/comportamentoLista.xhtml" TARGET="#xcomportamentoLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/porteLista.xhtml" NAME="output5" PATH="/porteLista.xhtml"
+   TARGET="#xporteLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/idadeLista.xhtml" NAME="output6" PATH="/idadeLista.xhtml"
+   TARGET="#xidadeLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/pelagemLista.xhtml" NAME="output7"
+   PATH="/pelagemLista.xhtml" TARGET="#xpelagemLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/racaLista.xhtml" NAME="output8" PATH="/racaLista.xhtml"
+   TARGET="#xracaLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/especieLista.xhtml" NAME="output9"
+   PATH="/especieLista.xhtml" TARGET="#xespecieLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/viaAdocaoLista.xhtml" NAME="output10"
+   PATH="/viaAdocaoLista.xhtml" TARGET="#xviaAdocaoLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/classifRiscoGrupoLista.xhtml" NAME="output11"
+   PATH="/classifRiscoGrupoLista.xhtml"
+   TARGET="#xclassifRiscoGrupoLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/origemSolicitacaoLista.xhtml" NAME="output12"
+   PATH="/origemSolicitacaoLista.xhtml"
+   TARGET="#xorigemSolicitacaoLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/motivoSolicitacaoLista.xhtml" NAME="output13"
+   PATH="/motivoSolicitacaoLista.xhtml"
+   TARGET="#xmotivoSolicitacaoLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/situacaoSolicitacaoLista.xhtml" NAME="output14"
+   PATH="/situacaoSolicitacaoLista.xhtml"
+   TARGET="#xsituacaoSolicitacaoLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/desfechoSolicitacaoLista.xhtml" NAME="output15"
+   PATH="/desfechoSolicitacaoLista.xhtml"
+   TARGET="#xdesfechoSolicitacaoLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/fornecedorChipLista.xhtml" NAME="output16"
+   PATH="/fornecedorChipLista.xhtml"
+   TARGET="#xfornecedorChipLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/causaAgendaLista.xhtml" NAME="output17"
+   PATH="/causaAgendaLista.xhtml" TARGET="#xcausaAgendaLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/tipoSolicitanteLista.xhtml" NAME="output18"
+   PATH="/tipoSolicitanteLista.xhtml"
+   TARGET="#xtipoSolicitanteLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitanteLista.xhtml" NAME="output19"
+   PATH="/solicitanteLista.xhtml" TARGET="#xsolicitanteLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitacaoLista.xhtml" NAME="output20"
+   PATH="/solicitacaoLista.xhtml" TARGET="#xsolicitacaoLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitacaoImportar.xhtml" NAME="output21"
+   PATH="/solicitacaoImportar.xhtml"
+   TARGET="#xsolicitacaoImportar.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitacaoNova.xhtml" NAME="output22"
+   PATH="/solicitacaoNova.xhtml" TARGET="#xsolicitacaoNova.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="#home.xhtml" NAME="#xhome.xhtml" PATH="/home.xhtml"
+  SHAPE="856,769,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#login.xhtml" NAME="#xlogin.xhtml" PATH="/login.xhtml"
+  SHAPE="472,769,0,0" TYPE="page" model-entity="SeamPagesDiagramItem">
+  <output ID="/solicitacaoLista.xhtml" NAME="output"
+   PATH="/solicitacaoLista.xhtml" TARGET="#xsolicitacaoLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitacaoLista.xhtml" NAME="output1"
+   PATH="/solicitacaoLista.xhtml" TARGET="#xsolicitacaoLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/home.xhtml" NAME="output2" PATH="/home.xhtml"
+   TARGET="#xhome.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/login.xhtml" NAME="output3" PATH="/login.xhtml"
+   TARGET="#xlogin.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="#roleLista.xhtml" NAME="#xroleLista.xhtml"
+  PATH="/roleLista.xhtml" SHAPE="856,1737,0,0" TYPE="page" model-entity="SeamPagesDiagramItem">
+  <output ID="/roleEdicao.xhtml" NAME="output" PATH="/roleEdicao.xhtml"
+   TARGET="#xroleEdicao.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/roleEdicao.xhtml" NAME="output1" PATH="/roleEdicao.xhtml"
+   TARGET="#xroleEdicao.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/roleLista.xhtml" NAME="output2" PATH="/roleLista.xhtml"
+   TARGET="#xroleLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="#roleEdicao.xhtml" NAME="#xroleEdicao.xhtml"
+  PATH="/roleEdicao.xhtml" SHAPE="1304,1737,0,0" TYPE="page" model-entity="SeamPagesDiagramItem">
+  <output ID="#{manager.parentConversationViewId}" NAME="output"
+   PATH="#{manager.parentConversationViewId}"
+   TARGET="##{manager.parentConversationViewId}" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="#{manager.parentConversationViewId}" NAME="output1"
+   PATH="#{manager.parentConversationViewId}"
+   TARGET="##{manager.parentConversationViewId}" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="#usuarioLista.xhtml" NAME="#xusuarioLista.xhtml"
+  PATH="/usuarioLista.xhtml" SHAPE="856,1889,0,0" TYPE="page" model-entity="SeamPagesDiagramItem">
+  <output ID="/usuarioEdicao.xhtml" NAME="output"
+   PATH="/usuarioEdicao.xhtml" TARGET="#xusuarioEdicao.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/usuarioEdicao.xhtml" NAME="output1"
+   PATH="/usuarioEdicao.xhtml" TARGET="#xusuarioEdicao.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="#usuarioEdicao.xhtml" NAME="#xusuarioEdicao.xhtml"
+  PATH="/usuarioEdicao.xhtml" SHAPE="1304,1889,0,0" TYPE="page" model-entity="SeamPagesDiagramItem">
+  <output ID="#{manager.parentConversationViewId}" NAME="output"
+   PATH="#{manager.parentConversationViewId}"
+   TARGET="##{manager.parentConversationViewId}" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="#{manager.parentConversationViewId}" NAME="output1"
+   PATH="#{manager.parentConversationViewId}"
+   TARGET="##{manager.parentConversationViewId}" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/usuarioLista.xhtml" NAME="output2"
+   PATH="/usuarioLista.xhtml" TARGET="#xusuarioLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="org.jboss.seam.framework.EntityNotFoundException"
+  NAME="exception:org.jboss.seam.framework.EntityNotFoundException"
+  PATH="org.jboss.seam.framework.EntityNotFoundException"
+  SHAPE="344,2457,0,0" TYPE="exception" model-entity="SeamPagesDiagramItem"/>
+ <item ID="javax.persistence.NoResultException"
+  NAME="exception:javax.persistence.NoResultException"
+  PATH="javax.persistence.NoResultException" SHAPE="664,2457,0,0"
+  TYPE="exception" model-entity="SeamPagesDiagramItem"/>
+ <item ID="javax.persistence.EntityNotFoundException"
+  NAME="exception:javax.persistence.EntityNotFoundException"
+  PATH="javax.persistence.EntityNotFoundException" SHAPE="984,2457,0,0"
+  TYPE="exception" model-entity="SeamPagesDiagramItem"/>
+ <item ID="javax.persistence.OptimisticLockException"
+  NAME="exception:javax.persistence.OptimisticLockException"
+  PATH="javax.persistence.OptimisticLockException" SHAPE="24,2145,0,0"
+  TYPE="exception" model-entity="SeamPagesDiagramItem">
+  <output ID="/error.xhtml" NAME="output" PATH="/error.xhtml"
+   TARGET="#xerror.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="org.hibernate.StaleObjectStateException"
+  NAME="exception:org.hibernate.StaleObjectStateException"
+  PATH="org.hibernate.StaleObjectStateException" SHAPE="24,2249,0,0"
+  TYPE="exception" model-entity="SeamPagesDiagramItem">
+  <output ID="/error.xhtml" NAME="output" PATH="/error.xhtml"
+   TARGET="#xerror.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="org.jboss.seam.security.AuthorizationException"
+  NAME="exception:org.jboss.seam.security.AuthorizationException"
+  PATH="org.jboss.seam.security.AuthorizationException"
+  SHAPE="24,769,0,0" TYPE="exception" model-entity="SeamPagesDiagramItem">
+  <output ID="/login.xhtml" NAME="output" PATH="/login.xhtml"
+   TARGET="#xlogin.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="org.jboss.seam.security.NotLoggedInException"
+  NAME="exception:org.jboss.seam.security.NotLoggedInException"
+  PATH="org.jboss.seam.security.NotLoggedInException" SHAPE="24,921,0,0"
+  TYPE="exception" model-entity="SeamPagesDiagramItem">
+  <output ID="/login.xhtml" NAME="output" PATH="/login.xhtml"
+   TARGET="#xlogin.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="javax.ejb.EJBTransactionRolledbackException"
+  NAME="exception:javax.ejb.EJBTransactionRolledbackException"
+  PATH="javax.ejb.EJBTransactionRolledbackException" SHAPE="24,641,0,0"
+  TYPE="exception" model-entity="SeamPagesDiagramItem">
+  <output ID="/login.xhtml" NAME="output" PATH="/login.xhtml"
+   TARGET="#xlogin.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="javax.resource.ResourceException"
+  NAME="exception:javax.resource.ResourceException"
+  PATH="javax.resource.ResourceException" SHAPE="24,1049,0,0"
+  TYPE="exception" model-entity="SeamPagesDiagramItem">
+  <output ID="/login.xhtml" NAME="output" PATH="/login.xhtml"
+   TARGET="#xlogin.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="javax.faces.application.ViewExpiredException"
+  NAME="exception:javax.faces.application.ViewExpiredException"
+  PATH="javax.faces.application.ViewExpiredException" SHAPE="24,489,0,0"
+  TYPE="exception" model-entity="SeamPagesDiagramItem">
+  <output ID="/login.xhtml" NAME="output" PATH="/login.xhtml"
+   TARGET="#xlogin.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="org.jboss.seam.web.FileUploadException"
+  NAME="exception:org.jboss.seam.web.FileUploadException"
+  PATH="org.jboss.seam.web.FileUploadException" SHAPE="24,2353,0,0"
+  TYPE="exception" model-entity="SeamPagesDiagramItem">
+  <output ID="/error.xhtml" NAME="output" PATH="/error.xhtml"
+   TARGET="#xerror.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item NAME="exception:" SHAPE="1304,2457,0,0" TYPE="exception" model-entity="SeamPagesDiagramItem"/>
+ <item NAME="##{manager.parentConversationViewId}"
+  PATH="#{manager.parentConversationViewId}" SHAPE="1752,337,0,0"
+  TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item NAME="#xerror.xhtml" PATH="/error.xhtml" SHAPE="408,2145,0,0"
+  TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#porteLista.xhtml" NAME="#xporteLista.xhtml"
+  PATH="/porteLista.xhtml" SHAPE="472,217,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#solicitanteLista.xhtml" NAME="#xsolicitanteLista.xhtml"
+  PATH="/solicitanteLista.xhtml" SHAPE="472,553,0,0" TYPE="page" model-entity="SeamPagesDiagramItem">
+  <output ID="/solicitanteNovo.xhtml" NAME="output"
+   PATH="/solicitanteNovo.xhtml" TARGET="#xsolicitanteNovo.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitanteEdicao.xhtml" NAME="output1"
+   PATH="/solicitanteEdicao.xhtml" TARGET="#xsolicitanteEdicao.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitanteLista.xhtml" NAME="output2"
+   PATH="/solicitanteLista.xhtml" TARGET="#xsolicitanteLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="#{manager.parentConversationViewId}" NAME="output3"
+   PATH="#{manager.parentConversationViewId}"
+   TARGET="##{manager.parentConversationViewId}" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="#{manager.parentConversationViewId}" NAME="output4"
+   PATH="#{manager.parentConversationViewId}"
+   TARGET="##{manager.parentConversationViewId}" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="#solicitacaoLista.xhtml" NAME="#xsolicitacaoLista.xhtml"
+  PATH="/solicitacaoLista.xhtml" SHAPE="472,577,0,0" TYPE="page" model-entity="SeamPagesDiagramItem">
+  <output ID="/solicitacaoNova.xhtml" NAME="output"
+   PATH="/solicitacaoNova.xhtml" TARGET="#xsolicitacaoNova.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitacaoEdicao.xhtml" NAME="output1"
+   PATH="/solicitacaoEdicao.xhtml" TARGET="#xsolicitacaoEdicao.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitacaoLista.xhtml" NAME="output2"
+   PATH="/solicitacaoLista.xhtml" TARGET="#xsolicitacaoLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="#solicitacaoEdicao.xhtml" NAME="#xsolicitacaoEdicao.xhtml"
+  PATH="/solicitacaoEdicao.xhtml" SHAPE="1592,785,0,0" TYPE="page" model-entity="SeamPagesDiagramItem">
+  <output ID="#{manager.parentConversationViewId}" NAME="output"
+   PATH="#{manager.parentConversationViewId}"
+   TARGET="##{manager.parentConversationViewId}" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitacaoLista.xhtml" NAME="output1"
+   PATH="/solicitacaoLista.xhtml" TARGET="#xsolicitacaoLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitanteEdicao.xhtml" NAME="output2"
+   PATH="/solicitanteEdicao.xhtml" TARGET="#xsolicitanteEdicao.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitacaoEdicao.xhtml" NAME="output3"
+   PATH="/solicitacaoEdicao.xhtml" TARGET="#xsolicitacaoEdicao.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitanteLista.xhtml" NAME="output4"
+   PATH="/solicitanteLista.xhtml" TARGET="#xsolicitanteLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitanteLista.xhtml" NAME="output5"
+   PATH="/solicitanteLista.xhtml" TARGET="#xsolicitanteLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitacaoEdicao.xhtml" NAME="output6"
+   PATH="/solicitacaoEdicao.xhtml" TARGET="#xsolicitacaoEdicao.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="#idadeLista.xhtml" NAME="#xidadeLista.xhtml"
+  PATH="/idadeLista.xhtml" SHAPE="472,577,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#pelagemLista.xhtml" NAME="#xpelagemLista.xhtml"
+  PATH="/pelagemLista.xhtml" SHAPE="472,577,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#racaLista.xhtml" NAME="#xracaLista.xhtml"
+  PATH="/racaLista.xhtml" SHAPE="472,577,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#especieLista.xhtml" NAME="#xespecieLista.xhtml"
+  PATH="/especieLista.xhtml" SHAPE="472,17,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#classifRiscoGrupoLista.xhtml"
+  NAME="#xclassifRiscoGrupoLista.xhtml"
+  PATH="/classifRiscoGrupoLista.xhtml" SHAPE="472,577,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#comportamentoLista.xhtml" NAME="#xcomportamentoLista.xhtml"
+  PATH="/comportamentoLista.xhtml" SHAPE="472,577,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#origemSolicitacaoLista.xhtml"
+  NAME="#xorigemSolicitacaoLista.xhtml"
+  PATH="/origemSolicitacaoLista.xhtml" SHAPE="472,577,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#motivoSolicitacaoLista.xhtml"
+  NAME="#xmotivoSolicitacaoLista.xhtml"
+  PATH="/motivoSolicitacaoLista.xhtml" SHAPE="472,577,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#desfechoSolicitacaoLista.xhtml"
+  NAME="#xdesfechoSolicitacaoLista.xhtml"
+  PATH="/desfechoSolicitacaoLista.xhtml" SHAPE="472,577,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#viaAdocaoLista.xhtml" NAME="#xviaAdocaoLista.xhtml"
+  PATH="/viaAdocaoLista.xhtml" SHAPE="472,577,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#fornecedorChipLista.xhtml"
+  NAME="#xfornecedorChipLista.xhtml" PATH="/fornecedorChipLista.xhtml"
+  SHAPE="472,577,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#situacaoSolicitacaoLista.xhtml"
+  NAME="#xsituacaoSolicitacaoLista.xhtml"
+  PATH="/situacaoSolicitacaoLista.xhtml" SHAPE="472,577,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#tipoSolicitanteLista.xhtml"
+  NAME="#xtipoSolicitanteLista.xhtml" PATH="/tipoSolicitanteLista.xhtml"
+  SHAPE="472,577,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#causaAgendaLista.xhtml" NAME="#xcausaAgendaLista.xhtml"
+  PATH="/causaAgendaLista.xhtml" SHAPE="472,577,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#solicitanteNovo.xhtml" NAME="#xsolicitanteNovo.xhtml"
+  PATH="/solicitanteNovo.xhtml" SHAPE="1592,785,0,0" TYPE="page" model-entity="SeamPagesDiagramItem">
+  <output ID="#{manager.parentConversationViewId}" NAME="output"
+   PATH="#{manager.parentConversationViewId}"
+   TARGET="##{manager.parentConversationViewId}" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitacaoEdicao.xhtml" NAME="output1"
+   PATH="/solicitacaoEdicao.xhtml" TARGET="#xsolicitacaoEdicao.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="#{manager.parentConversationViewId}" NAME="output2"
+   PATH="#{manager.parentConversationViewId}"
+   TARGET="##{manager.parentConversationViewId}" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="#solicitanteEdicao.xhtml" NAME="#xsolicitanteEdicao.xhtml"
+  PATH="/solicitanteEdicao.xhtml" SHAPE="888,993,0,0" TYPE="page" model-entity="SeamPagesDiagramItem">
+  <output ID="/solicitanteEdicao.xhtml" NAME="output"
+   PATH="/solicitanteEdicao.xhtml" TARGET="#xsolicitanteEdicao.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="#{manager.parentConversationViewId}" NAME="output1"
+   PATH="#{manager.parentConversationViewId}"
+   TARGET="##{manager.parentConversationViewId}" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitacaoEdicao.xhtml" NAME="output2"
+   PATH="/solicitacaoEdicao.xhtml" TARGET="#xsolicitacaoEdicao.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item NAME="#xajuda.xhtml" PATH="/ajuda.xhtml" SHAPE="472,601,0,0"
+  TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="#solicitacaoNova.xhtml" NAME="#xsolicitacaoNova.xhtml"
+  PATH="/solicitacaoNova.xhtml" SHAPE="920,1017,0,0" TYPE="page" model-entity="SeamPagesDiagramItem">
+  <output ID="/solicitacaoLista.xhtml" NAME="output"
+   PATH="/solicitacaoLista.xhtml" TARGET="#xsolicitacaoLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitanteLista.xhtml" NAME="output1"
+   PATH="/solicitanteLista.xhtml" TARGET="#xsolicitanteLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/solicitacaoLista.xhtml" NAME="output2"
+   PATH="/solicitacaoLista.xhtml" TARGET="#xsolicitacaoLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="#solicitacaoImportar.xhtml"
+  NAME="#xsolicitacaoImportar.xhtml" PATH="/solicitacaoImportar.xhtml"
+  SHAPE="472,649,0,0" TYPE="page" model-entity="SeamPagesDiagramItem">
+  <output ID="/solicitacaoLista.xhtml" NAME="output"
+   PATH="/solicitacaoLista.xhtml" TARGET="#xsolicitacaoLista.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+</diagram>

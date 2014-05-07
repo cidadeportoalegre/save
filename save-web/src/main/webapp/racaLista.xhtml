@@ -1,0 +1,121 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	template="layout/template.xhtml">	
+	<ui:define name="body">
+		<rich:panel id="idPanelEditRaca">
+			<rich:modalPanel id="panelEditRaca" autosized="true">
+				<f:facet name="header">
+					<h:outputText value="Edição de raça" />
+				</f:facet>
+				<a4j:form id="idFormEditRaca">
+					<rich:panel>
+						<rich:messages layout="table" ajaxRendered="true"/>
+						<s:decorate template="/layout/edit.xhtml">
+							<ui:param name="labelWidth" value="80" />
+							<ui:define name="label">Descrição</ui:define>
+							<h:inputText required="true" value="#{raca.descricao}"
+								id="descricao" label="Descrição" size="50" maxlength="50" styleClass="form-control input"/>
+						</s:decorate>
+						<s:decorate template="/layout/edit.xhtml">
+							<ui:param name="labelWidth" value="80" />
+							<ui:define name="label">Espécie</ui:define>
+							<h:selectOneMenu label="Espécie" value="#{raca.especie}" required="true"
+								id="idEspecie" styleClass="form-control dropdown-toggle clearfix input">
+								<s:selectItems value="#{racaAction.especieList}" var="varEspecie"
+									label="#{varEspecie.descricao}" noSelectionLabel="Selecione a espécie"/>
+							<s:convertEntity/>
+					   		</h:selectOneMenu>
+  						</s:decorate>
+						
+						<s:decorate template="/layout/edit.xhtml">
+							<h:selectBooleanCheckbox value="#{raca.ativo}"
+								title="Identifica se a raça está ativa ou não no sistema" />
+							<ui:param name="labelWidth" value="50" />
+							<ui:define name="label">Ativa</ui:define>
+						</s:decorate>
+					</rich:panel>
+					<rich:toolBar id="botoesLiderModal">
+						<rich:toolBarGroup location="left">
+							<a4j:commandButton value="Cancelar" action="#{racaAction.cancelar}" 
+								reRender="listaAction,idFormEditRaca" immediate="true"
+								onclick="#{rich:component('panelEditRaca')}.hide()" styleClass="btn btn-primary"/>
+						</rich:toolBarGroup>
+						<rich:toolBarGroup location="right">
+							<a4j:commandButton value="Salvar" action="#{racaAction.salvar}" rendered="#{empty raca.id}"
+								reRender="listaAction,idFormEditRaca" id="salvarNovo"
+								oncomplete="if (#{facesContext.maximumSeverity==null}) #{rich:component('panelEditRaca')}.show();" styleClass="btn btn-primary"/>
+							<a4j:commandButton value="Salvar" action="#{racaAction.salvar}" rendered="#{not empty raca.id}"
+								reRender="listaAction" id="salvarEdicao"
+								oncomplete="if (#{facesContext.maximumSeverity==null}) #{rich:component('panelEditRaca')}.hide();" styleClass="btn btn-primary"/>							
+						</rich:toolBarGroup>
+					</rich:toolBar>
+				<!-- Pressiona automaticamente os botões quando usuário pressiona enter ou esc -->
+	     		<rich:hotKey key="return" selector="#idFormEditRaca" 
+					    handler="${rich:element('idFormEditRaca:salvarNovo')}.click();event.stopPropagation();event.preventDefault(); return false;"
+	     				disableInInput="false" rendered="#{empty raca.id}"/>
+	     						
+	     		<rich:hotKey key="return" selector="#idFormEditRaca" 
+					    handler="${rich:element('idFormEditRaca:salvarEdicao')}.click();event.stopPropagation();event.preventDefault(); return false;"
+	     				disableInInput="false" rendered="#{not empty raca.id}"/>
+	     					     						
+				<rich:hotKey key="esc" selector="#idFormEditRaca"
+			         handler="${rich:element('idFormEditRaca:salvarEdicao')}.click();event.stopPropagation();event.preventDefault(); return false;"
+					 disableInInput="false"/>					
+				</a4j:form>
+			</rich:modalPanel>
+		</rich:panel>
+		<h:form id="pesquisaDown">
+			<rich:toolBar id="botoesDown">
+				<a4j:commandButton value="+ nova raça" title="Nova raça" ajaxSingle="true" immediate="true" limitToList="true"  
+					reRender="idPanelEditRaca" action="#{racaAction.criar}"
+					oncomplete="Richfaces.showModalPanel('panelEditRaca')" styleClass="btn btn-new" />	
+			</rich:toolBar>
+		</h:form>
+		<h:form id="listaAction">
+			<a4j:outputPanel id="idDataTable">
+				<h:outputText value="Nenhuma raça foi encontrada"
+					rendered="#{racaLista != null and racaLista.rowCount==0}" />
+				<rich:dataTable id="tbRaca" value="#{racaLista}" var="varRaca" rows="20" 
+					rendered="#{racaLista != null and racaLista.rowCount>0}" onRowMouseOver="this.classList.add('rich-row-select');"  
+    			onRowMouseOut="this.classList.remove('rich-row-select');" onRowClick="#{racaAction.editar(varRaca)}">
+					<a4j:support event="onRowClick"  action="#{racaAction.editar(varRaca)}" 
+						oncomplete="Richfaces.showModalPanel('panelEditRaca')" reRender="idPanelEditRaca"/>
+					<rich:column styleClass="#{!varRaca.ativo ? 'rich-row-inactive': 'default'}">
+						<f:facet name="header">Descrição</f:facet>
+						<h:outputText value="#{varRaca.descricao}" />
+					</rich:column>
+					<rich:column styleClass="#{!varRaca.ativo ? 'rich-row-inactive': 'default'}">
+						<f:facet name="header">Espécie</f:facet>
+						<h:outputText value="#{varRaca.especie.descricao}" />
+					</rich:column>	
+					<rich:column styleClass="#{!varRaca.ativo ? 'rich-row-inactive': 'default'}">
+						<f:facet name="header">Ativa</f:facet>
+						<h:outputText rendered="#{varRaca.ativo}">
+							<span class="fui-check"></span>
+						</h:outputText>
+					</rich:column>
+					<rich:column styleClass="#{!varRaca.ativo ? 'rich-row-inactive': 'default'}">
+						<f:facet name="header">Ultima alteração</f:facet>
+						<h:outputText value="#{varRaca.operador}"/> 
+					</rich:column>						
+		            <f:facet name="footer">
+	    	            <rich:datascroller id="tbScroller" for="tbRaca" renderIfSinglePage="false" >
+							<f:facet name="previous">
+								<h:outputText value="‹"/>
+							</f:facet>
+							<f:facet name="next">
+								<h:outputText value="›"/>
+							</f:facet>
+						</rich:datascroller>
+	        	    </f:facet>
+				</rich:dataTable>
+			</a4j:outputPanel>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

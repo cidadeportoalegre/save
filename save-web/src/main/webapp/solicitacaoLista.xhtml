@@ -1,0 +1,289 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:rich="http://richfaces.org/rich"
+  xmlns:s="http://jboss.com/products/seam/taglib"
+  template="layout/template.xhtml">
+  <ui:define name="body">
+    <script type="text/javascript">
+          //<![CDATA[
+          function showReport(conversationId) {
+          if (document.getElementById("messages") != null) {
+            return;
+          }
+          var reportWin = window.open('#{solicitacaoAction.reportURL}' + '?cid=' + conversationId);
+          if (!reportWin) {
+            alert("Não foi possível exibir a janela com o relatório. Por favor configure o navegador para permitir janelas popup e tente novamente.");
+          }
+          }
+          // ]]>
+      </script>
+    <rich:panel id="idPanelBuscaAvancada">
+      <rich:modalPanel id="panelBuscaAvancada" autosized="true">
+        <f:facet name="header">
+          <h:outputText value="Busca avançada" />
+        </f:facet>
+        <a4j:form id="idFormEditCausaAgenda">
+          <rich:panel styleClass="prop busca">
+
+            <h:outputLabel for="idDataDe">Data inicial</h:outputLabel>
+            <rich:calendar
+              value="#{solicitacaoAction.solicitacaoDataModel.dataDe}"
+              enableManualInput="true" firstWeekDay="0" popup="true"
+              datePattern="dd/MM/yyyy" showWeeksBar="false"
+              inputClass="form-control input" showApplyButton="false"
+              label="Data" inputSize="13" id="idDataDe"
+              jointPoint="auto" direction="auto"
+              buttonIcon="img/calendario.svg">
+            </rich:calendar>
+
+            <h:outputLabel for="idDataA">Data final</h:outputLabel>
+            <rich:calendar
+              value="#{solicitacaoAction.solicitacaoDataModel.dataA}"
+              enableManualInput="true" firstWeekDay="0" popup="true"
+              datePattern="dd/MM/yyyy" showWeeksBar="false"
+              inputClass="form-control input" showApplyButton="false"
+              label="Data" inputSize="13" id="idDataA" jointPoint="auto"
+              direction="auto" buttonIcon="img/calendario.svg">
+            </rich:calendar>
+
+            <h:outputLabel for="origemSolicitacao">Origem</h:outputLabel>
+            <h:selectOneMenu label="Origem"
+              value="#{solicitacaoAction.solicitacaoDataModel.origemSolicitacao}"
+              id="origemSolicitacao"
+              styleClass="form-control dropdown-toggle clearfix input">
+              <s:selectItems
+                value="#{solicitacaoAction.origemSolicitacaoList}"
+                var="varOrigem" label="#{varOrigem.descricao}"
+                noSelectionLabel="Selecione a origem" />
+              <s:convertEntity />
+            </h:selectOneMenu>
+
+            <h:outputLabel for="situacaoSolicitacao">Situação</h:outputLabel>
+            <h:selectOneMenu label="Situacao"
+              value="#{solicitacaoAction.solicitacaoDataModel.situacaoSolicitacao}"
+              id="situacaoSolicitacao"
+              styleClass="form-control dropdown-toggle clearfix input">
+              <s:selectItems
+                value="#{solicitacaoAction.situacaoSolicitacaoList}"
+                var="varSituacao" label="#{varSituacao.descricao}"
+                noSelectionLabel="Selecione a situação" />
+              <s:convertEntity />
+            </h:selectOneMenu>
+
+            <h:outputLabel for="motivoSolicitacao">Motivo</h:outputLabel>
+            <h:selectOneMenu label="Motivo"
+              value="#{solicitacaoAction.solicitacaoDataModel.motivoSolicitacao}"
+              id="motivoSolicitacao"
+              styleClass="form-control dropdown-toggle clearfix input">
+
+              <s:selectItems
+                value="#{solicitacaoAction.motivoSolicitacaoList}"
+                var="varMotivo" label="#{varMotivo.descricao}"
+                noSelectionLabel="Selecione o motivo" />
+              <s:convertEntity />
+            </h:selectOneMenu>
+
+            <h:outputLabel for="cep">CEP</h:outputLabel>
+            <h:inputText
+              value="#{solicitacaoAction.solicitacaoDataModel.cep}"
+              id="cep" styleClass="form-control input" />
+            <rich:jQuery selector="#cep" query="setMask('cep')"
+              timing="immediate" />
+
+            <h:selectBooleanCheckbox style="margin-left:15px;"
+              value="#{solicitacaoAction.solicitacaoDataModel.vinculadas}"
+              title="Exibir as solicitações vinculadas na lista"
+              id="idVinculadas">
+              <h:outputLabel for="idVinculadas">Exibir solicitações vinculadas</h:outputLabel>
+            </h:selectBooleanCheckbox>
+          </rich:panel>
+
+
+          <rich:toolBar id="botoesLiderModalBuscaAvancada">
+            <rich:toolBarGroup location="left">
+              <a4j:commandButton value="Cancelar" id="cancelar"
+                immediate="true"
+                onclick="#{rich:component('panelBuscaAvancada')}.hide()"
+                styleClass="btn btn-primary" />
+            </rich:toolBarGroup>
+            <rich:toolBarGroup location="right">
+
+              <a4j:commandButton value="Buscar"
+                action="#{solicitacaoAction.busca}"
+                reRender="idDataTable,listaBotoes" id="idBuscaAvancada"
+                oncomplete="if (#{facesContext.maximumSeverity==null}) #{rich:component('panelBuscaAvancada')}.hide();"
+                styleClass="btn btn-primary" />
+            </rich:toolBarGroup>
+          </rich:toolBar>
+        </a4j:form>
+      </rich:modalPanel>
+    </rich:panel>
+
+    <h:form id="listaBotoes">
+      <rich:toolBar id="botoes">
+
+        <h:selectBooleanCheckbox
+          value="#{solicitacaoAction.solicitacaoDataModel.ativas}"
+          title="Somente solicitações ativas" id="idAtivas">
+          <a4j:support event="onclick" reRender="idDataTable"
+            ajaxSingle="true" action="#{solicitacaoAction.busca}" />
+          <h:outputLabel for="idAtivas">Ativas</h:outputLabel>
+        </h:selectBooleanCheckbox>
+
+        <h:selectBooleanCheckbox
+          value="#{solicitacaoAction.solicitacaoDataModel.urgente}"
+          title="Seleciona somente as situações urgentes"
+          id="idUrgentes">
+          <a4j:support event="onclick" reRender="idDataTable"
+            ajaxSingle="true" action="#{solicitacaoAction.busca}" />
+          <h:outputLabel for="idUrgentes">Urgentes</h:outputLabel>
+        </h:selectBooleanCheckbox>
+
+        <rich:calendar
+          value="#{solicitacaoAction.solicitacaoDataModel.data}"
+          enableManualInput="true" firstWeekDay="0" popup="true"
+          datePattern="dd/MM/yyyy" showWeeksBar="false"
+          inputClass="form-control input" showApplyButton="false"
+          label="Data" inputSize="13" id="idData" jointPoint="auto"
+          direction="auto" buttonIcon="img/calendario.svg">
+        </rich:calendar>
+
+        <h:selectOneMenu label="Intervalo de busca"
+          value="#{solicitacaoAction.solicitacaoDataModel.intervalo}"
+          id="idIntervalo"
+          styleClass="form-control dropdown-toggle clearfix input"
+          style="height:30px">
+          <s:selectItems value="#{solicitacaoAction.intervaloLista}"
+            var="varIntervalo" label="#{varIntervalo.descricao}"
+            noSelectionLabel="hh:mm" />
+          <s:convertEntity />
+        </h:selectOneMenu>
+
+        <h:inputText id="idProtocolo"
+          value="#{solicitacaoAction.solicitacaoDataModel.protocoloSolicitacao}"
+          size="12" styleClass="form-control input">
+          <h:outputLabel for="idProtocolo">Protocolo:</h:outputLabel>
+        </h:inputText>
+
+        <a4j:commandButton id="idBuscaProtocolo"
+          action="#{solicitacaoAction.buscaPadrao}" value="Busca"
+          reRender="idDataTable,listaBotoes" image="img/lupa.svg"
+          styleClass="btn btn-primary" />
+
+        <rich:toolBarGroup location="right">
+
+          <a4j:commandButton value="Busca avançada"
+            action="#{solicitacaoAction.buscaPadrao}"
+            title="busca avançada" ajaxSingle="false" immediate="false"
+            limitToList="false"
+            reRender="panelBuscaAvancada,listaBotoes"
+            oncomplete="Richfaces.showModalPanel('panelBuscaAvancada')"
+            styleClass="btn btn-primary" />
+
+          <a4j:commandButton id="getReportLink"
+            action="#{solicitacaoAction.reportSolicitacao}"
+            value="Imprimir"
+            oncomplete="showReport('#{conversation.id}')"
+            image="img/imprimir.svg" styleClass="btn btn-primary" />
+        </rich:toolBarGroup>
+
+      </rich:toolBar>
+      <rich:jQuery selector="#idProtocolo"
+        query="setMask('999999-99-99')" timing="immediate" />
+      <rich:jQuery id="mskData" selector=".txtData"
+        query="setMask('date')" timing="onload" />
+    </h:form>
+
+    <h:form id="listaAction">
+      <a4j:outputPanel id="idDataTable">
+        <h5>
+          <h:outputText value="Nenhuma solicitação encontrada"
+            rendered="#{solicitacaoDataModel == null or solicitacaoDataModel.count==0}" />
+        </h5>
+        <rich:dataTable id="tbSolicitacao"
+          value="#{solicitacaoDataModel}" var="solicitacao" rows="10"
+          rendered="#{solicitacaoDataModel != null and solicitacaoDataModel.count>0}"
+          onRowClick="#{solicitacaoAction.editar(solicitacao)}"
+          onRowMouseOver="this.classList.add('rich-row-select');"
+          onRowMouseOut="this.classList.remove('rich-row-select');">
+          <a4j:support event="onRowClick"
+            action="#{solicitacaoAction.editar(solicitacao)}" />
+
+          <rich:column style="width:140px;"
+            styleClass="#{solicitacao.situacaoSolicitacao.descricao ne solicitacaoAction.getSituacaoDestacada() ? 'rich-row-inactive': 'default'}#{solicitacao.tramiteList.size le 1 and solicitacao.dataEncerramento == null?' rich-row-unread':''}"
+            sortBy="#{solicitacao.protocolo}">
+            <f:facet name="header">Protocolo</f:facet>
+            <h:outputText value="#{solicitacao.protocolo}" />
+          </rich:column>
+          <rich:column style="width:130px;"
+            styleClass="#{solicitacao.situacaoSolicitacao.descricao ne solicitacaoAction.getSituacaoDestacada() ? 'rich-row-inactive': 'default'}#{solicitacao.tramiteList.size le 1 and solicitacao.dataEncerramento == null?' rich-row-unread':''}"
+            sortBy="#{solicitacao.dataSolicitacao.time}"
+            sortOrder="DESCENDING">
+            <f:facet name="header">Importação</f:facet>
+            <h:outputText value="#{solicitacao.dataSolicitacao.time}">
+              <s:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+            <h:outputText
+              value=" #{solicitacao.intervaloImportacao.descricao}" />
+          </rich:column>
+          <rich:column style="width:260px;"
+            styleClass="#{solicitacao.situacaoSolicitacao.descricao ne solicitacaoAction.getSituacaoDestacada() ? 'rich-row-inactive': 'default'}#{solicitacao.tramiteList.size le 1 and solicitacao.dataEncerramento == null?' rich-row-unread':''}">
+            <f:facet name="header">Motivo da solicitação</f:facet>
+            <h:outputText
+              value="#{solicitacao.motivoSolicitacao.descricao}">
+            </h:outputText>
+          </rich:column>
+          <rich:column style="width:360px;"
+            styleClass="#{solicitacao.situacaoSolicitacao.descricao ne solicitacaoAction.getSituacaoDestacada() ? 'rich-row-inactive': 'default'}#{solicitacao.tramiteList.size le 1 and solicitacao.dataEncerramento == null?' rich-row-unread':''}"
+            sortBy="#{solicitacao.solicitante.nomeSolicitante}">
+            <f:facet name="header">Solicitante</f:facet>
+            <h:outputText
+              value="#{solicitacao.solicitante.nomeSolicitante}">
+            </h:outputText>
+          </rich:column>
+          <rich:column style="width:80px;"
+            styleClass="#{solicitacao.situacaoSolicitacao.descricao ne solicitacaoAction.getSituacaoDestacada() ? 'rich-row-inactive': 'default'}#{solicitacao.tramiteList.size le 1 and solicitacao.dataEncerramento == null?' rich-row-unread':''}">
+            <f:facet name="header">Telefones</f:facet>
+            <h:outputText
+              value="#{solicitacao.solicitante.telefoneCel}&lt;br/&gt;"
+              escape="false"
+              rendered="#{not empty solicitacao.solicitante.telefoneCel}" />
+            <h:outputText
+              value="#{solicitacao.solicitante.telefoneRes}&lt;br/&gt;"
+              escape="false"
+              rendered="#{not empty solicitacao.solicitante.telefoneRes}" />
+            <h:outputText value="#{solicitacao.solicitante.telefoneCom}"
+              rendered="#{not empty solicitacao.solicitante.telefoneCom}" />
+          </rich:column>
+
+          <rich:column
+            styleClass="icones #{solicitacao.situacaoSolicitacao.descricao ne solicitacaoAction.getSituacaoDestacada() ? 'rich-row-inactive': 'default'}#{solicitacao.tramiteList.size le 1 and solicitacao.dataEncerramento == null?' rich-row-unread':''}">
+            <h:outputText value="&lt;i class='icon-link'&gt;&lt;/i&gt;"
+              escape="false" title="Solicitação vinculada"
+              rendered="#{not empty solicitacao.protocoloOrigem}"
+              styleClass="icone" />
+            <h:outputText value="&lt;i class='icon-share'&gt;&lt;/i&gt;"
+              escape="false" title="Solicitação compartilhada"
+              rendered="#{solicitacao.secretariaList.size()>1}"
+              styleClass="icone" />
+          </rich:column>
+          <f:facet name="footer">
+            <rich:datascroller id="tbScroller" for="tbSolicitacao"
+              renderIfSinglePage="false">
+              <f:facet name="previous">
+                <h:outputText value="‹" />
+              </f:facet>
+              <f:facet name="next">
+                <h:outputText value="›" />
+              </f:facet>
+            </rich:datascroller>
+          </f:facet>
+
+        </rich:dataTable>
+      </a4j:outputPanel>
+    </h:form>
+  </ui:define>
+</ui:composition>

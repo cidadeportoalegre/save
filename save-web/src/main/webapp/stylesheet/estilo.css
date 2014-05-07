@@ -1,0 +1,733 @@
+/*  
+    
+    PROCEMPA -  Empresa de Tecnologia da Informacao e Comunicacao de Porto Alegre
+    data de criacao:10/2010
+    data de versao: 10/2013
+    Sistema Save (Seda)
+    
+*/
+
+/* Eric Meyer's Reset CSS v2.0 - http://cssreset.com 
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
+*/
+/*  Sticky Footer Solution by Steve Hatcher - http://www.cssstickyfooter.com */
+html, body {height: 100%;}
+
+#container {min-height: 100%;}
+
+#conteudo {overflow:auto;
+	padding-bottom: 70px;}  /* must be same height as the footer */
+
+#container-rodape {position: relative;
+	margin-top: -30px; /* negative value of footer height */
+	height: 30px;
+	clear:both;} 
+
+
+
+/* ZERA RICH FACES */
+
+.rich-panel, .rich-panel-header, .rich-panel-body, .rich-toolbar,
+.rich-table, .rich-table-cell, .rich-table-thead, .rich-table-subheader, .rich-table-subheadercell, .rich-table-footer, .rich-table-footercell,
+.rich-toolbar-item, .rich-menu-item-label, .rich-menu-group-label, .rich-menu-list-bg, .rich-ddmenu-label,
+.rich-modalpanel, .rich-mp-container, .rich-mpnl-header, .rich-mpnl-body, .rich-mpnl-text, .rich-mpnl-header-cell,
+.rich-dtascroller-table, .rich-datascr-button, .rich-datascr-button-dsbld, .rich-datascr-act, .rich-datascr-inact,
+.rich-stglpanel, .rich-stglpanel-header, .rich-stglpanel-body,
+.rich-list-shuttle, .rich-shuttle-body, .rich-shuttle-list, .rich-shuttle-source-items, .rich-shuttle-target-items,
+.rich-shuttle-source-cell, .rich-shuttle-target-cell,
+.rich-list-shuttle-caption, .rich-shuttle-source-caption, .rich-shuttle-target-caption, .rich-shuttle-source-cell, 
+.rich-shuttle-controls, .rich-list-shuttle-button, .rich-list-shuttle-button-disabled, .rich-list-shuttle-button-light, .rich-list-shuttle-button-press, .rich-list-shuttle-button-content,
+.rich-shuttle-source-row-selected, .rich-shuttle-target-row-selected, .rich-shuttle-source-cell-selected, .rich-shuttle-target-cell-selected,
+.rich-shuttle-control-disabled, .rich-shuttle-control-top, .rich-shuttle-control-bottom, .rich-shuttle-control-up, .rich-shuttle-control-down,
+.rich-shuttle-control-copyall, .rich-shuttle-control-copy, .rich-shuttle-control-remove, .rich-shuttle-control-removeall,
+.rich-calendar, .rich-calendar-exterior, .rich-calendar-cell-size, .rich-calendar-cell, .rich-calendar-holly, .rich-calendar-boundary-dates, .rich-calendar-header, .rich-calendar-footer, .rich-calendar-month, .rich-calendar-tool, .rich-calendar-tool-btn, .rich-calendar-toolfooter, .rich-calendar-days, .rich-calendar-weekends, .rich-right-cell,
+.label {
+	border: 0 none;
+	height: auto;
+	width: auto;
+	padding: 0;
+	margin:  0;
+	background: none transparent;
+	font-weight: normal;
+	font-size: 15px;
+	font-family: 'Lato',Helvetica,Arial,sans-serif;
+	border-collapse: collapse;
+	empty-cells: show;
+	text-align: left;
+	color: #444444;
+}
+
+
+.rich-menu-item-icon, .rich-menu-group-icon {
+    display: none;
+}
+
+
+
+/* ATRIBUTOS GERAIS */
+
+body {
+	background: #ffffff none;
+	font-size: 14px;
+	font-family: 'Lato',Helvetica,Arial,sans-serif;
+}
+
+#container {
+	width: 100%;
+	background: #ffffff none;
+}
+
+#conteudo {
+	width: 970px;
+	margin: 30px auto 0;
+}
+
+.caminho {
+	margin: 0 20px 15px;
+	color: #aaaaaa;
+}
+
+.titulo-pagina {
+	font-size: 24px;
+	color: #00A87A;
+	margin: 10px 20px 25px;
+}
+
+h4 {
+	margin: 40px 20px 20px;
+	font-size: 20px;
+	
+}
+
+h5 {
+    color: #777777;
+    font-size: 17px;
+    font-weight: normal;
+    margin: 10px 20px;
+}
+
+.rich-toolbar label {
+	margin: 0 10px 0 0;
+}
+
+.form-control {
+	height: 36px;
+}
+
+
+/* CABECALHO */
+
+#container-cabecalho {
+	width: 100%;
+	height: 80px;
+	background: #eeeeee none;
+}
+
+#cabecalho {
+	width: 970px;
+	margin: 0 auto;
+	padding-top: 17px;
+}
+
+#logo-sistema {
+    float: left;
+}
+
+#logos-direita {
+	float: right;
+}
+
+#logos-direita > div {
+	float: left;
+	margin-left: 30px;
+}
+
+
+
+/* RODAPE */
+
+#container-rodape {
+	width: 100%;
+	height: 30px;
+	background: #eeeeee none;
+}
+
+#rodape {
+	width: 970px;
+	margin: 0 auto;
+	padding-top: 10px;
+	font-size:  10px;
+	text-align: right;
+}
+
+
+
+/* INPUTS */
+
+.btn {
+	padding: 5px 12px 6px;
+	margin: 5px 0;
+}
+
+.btn.btn-new {
+  background-color: #C2C401;
+}
+.btn.btn-new:hover,
+.btn.btn-new:focus,
+.btn-group:focus .btn.btn-new.dropdown-toggle {
+  background-color: #D6D855;
+}
+.btn.btn-new:active,
+.btn-group.open .btn.btn-new.dropdown-toggle,
+.btn.btn-new.active {
+  background-color: #C2C401;
+}
+
+.form-control.dropdown-toggle.clearfix.input {
+	height: 39px;
+}
+
+.btn-default {
+	background-color: #aaaaaa;	
+}
+
+.btn.btn-default:hover, .btn.btn-default:focus {
+    background-color: #1ABC9C;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+	color:#888888;
+}
+
+/* TOOLBAR */
+
+.rich-toolbar {
+	border-radius: 5px;
+	background-color: #eeeeee;
+	margin-top: 30px;
+}
+
+
+/* MENU SECAO */
+
+.rich-ddmenu-label, .rich-ddmenu-label-disabled, .rich-toolbar-item {
+	color:  #444444;
+	padding: 5px 10px  !important;
+	border-radius: 5px;
+}
+
+.rich-toolbar-item .form-control {
+	width: auto;
+	height: 30px;
+	padding:  5px 12px;
+	display: inline;
+}
+
+rich-toolbar td {
+	padding: 5px 10px;
+}
+
+/* MENU */
+
+.barraMenu {
+	background-color: #19BB9B;
+	color:  #ffffff;
+	margin: 0 0 40px;
+}
+
+.barraMenu a {
+	color: #ffffff;
+	text-decoration: none; 
+}
+
+.barraMenu .rich-ddmenu-label, .barraMenu .rich-ddmenu-label-disabled, .barraMenu .rich-toolbar-item {
+	color:  #ffffff;
+}
+
+.rich-ddmenu-label-select {
+	background-color: #C2C401;
+}
+
+.rich-menu-list-border {
+	border: none 0;
+	background-color: #eeeeee;
+	border-radius: 5px;
+	margin-right:  10px;
+}
+
+.rich-menu-item-label, .rich-menu-group-label {
+	font-size: 14px;
+}
+
+.rich-menu-group, .rich-menu-item, .rich-menu-item-hover, .rich-menu-group-hover {
+	padding: 8px;
+	margin: 7px;
+}
+
+.rich-menu-item-hover, .rich-menu-group-hover {
+	border:  0 none;
+	background-color: #C2C401;
+	color: #ffffff;
+	border-radius: 5px;
+}
+
+.rich-menu-item-label-selected {
+	color: #ffffff;
+}
+
+.rich-menu-node {
+	top: 7px;
+}
+
+
+
+/* MENSAGENS DE ERRO */
+
+.message, .rich-messages {
+	color: #BF6300;
+    line-height: 1.3em;
+    list-style: none outside none;
+    margin: 15px 10px 1px;
+    padding: 0;
+}
+
+.message li {
+    margin: 15px 0 0;
+}
+
+
+.rich-messages td {
+    border: 0 none !important;
+    padding-top: 0 !important;
+}
+
+.rich-messages {
+	margin-bottom: 20px;
+	width: 50% !important;
+}
+
+
+/* TABELAS */
+
+.rich-table {
+	width:  100%;
+	margin:  25px 0;
+}
+
+.rich-table-subheader {
+	border-bottom: #A7ABB7 solid 1px;
+}
+
+.rich-table-subheadercell {
+	color: #444444;
+	padding: 10px 20px;
+	font-weight: bold;
+}
+
+.rich-table-row {
+	border-bottom: #A7ABB7 solid 1px;
+}
+
+.rich-table-cell {
+	color: #00A87A;
+	padding: 12px 20px;
+}
+
+.rich-row-select {
+	background-color: #eeeeee;
+	cursor: pointer;
+}
+
+.rich-row-inactive {
+	color:  #777777;
+}
+
+.rich-row-unread {
+	font-weight: 800;
+}
+
+.rich-panel-body table {
+    width: 100%;
+}
+
+.rich-panel-body td {
+    border-bottom: 1px solid #EEEEEE;
+    padding: 10px 20px;
+    vertical-align: top;
+}
+
+.rich-table-footercell, .rich-table-footer {
+    border: 0 none !important;
+}
+
+.semborda td {
+	border: 0 none;
+}
+
+.duascolunas td:first-child {
+    color: #777777;
+    width: 200px;
+}
+
+.rich-table ul {
+    list-style: none outside none;
+	padding: 0;
+}
+
+.tramites .rich-table-cell {
+	color: #555555;
+}
+
+
+/* PAGINACAO */
+
+.rich-dtascroller-table {
+    margin-top: 40px;
+    border-collapse: separate;
+    border-spacing: 5px;
+}
+
+.rich-datascr-button {
+    background-color: #EEEEEE;
+    color: #444444;
+	border: 1px solid #cccccc;
+}
+
+.rich-dtascroller-table td {
+    border-radius: 20px;
+    padding: 5px 8px;
+}
+
+.rich-datascr-act {
+    background-color: #19BB9B;
+    color: #ffffff;
+}
+
+.rich-datascr-inact {
+    background-color: #aaaaaa;
+    color: #ffffff;
+}
+
+.rich-dtascroller-table td:hover {
+    background-color: #19BB9B;
+    color: #ffffff;	
+}
+
+
+
+/* MODAL */
+
+.rich-mpnl-shadow {
+    background-color: #666666;
+    border-radius: 5px;
+    box-shadow: 0 0 3px #666666;
+    height: 100%;
+    left: 2px;
+    opacity: 0.2;
+    position: absolute;
+    top: 2px;
+    width: 100%;
+    z-index: -1;
+}
+
+.rich-mpnl-header {
+    color: #00A87A;
+    font-size: 20px;
+    margin: 0 0 15px;
+	width: 400px;
+}
+
+.rich-mpnl-content {
+    background: none repeat scroll 0 center #FFFFFF;
+    border: 0 none;
+    border-radius: 5px;
+    padding: 30px;
+}
+
+.rich-mpnl-content .prop {
+	margin: 10px 0;
+}
+
+.form-control option {
+	padding: 8px 5px;
+}
+
+select.input-sm {
+	line-height: 16px;
+}
+
+.rich-mpnl-body .form-control {
+	margin-bottom: 5px;
+}
+
+.rich-mpnl-content .rich-calendar-button {
+	margin: -3px 0 0 -25px;
+}	
+
+.rich-modalpanel .rich-messages {
+	width: auto !important;
+	margin: 0;
+}
+
+.rich-modalpanel .rich-messages td {
+	padding: 0 0 5px;
+	margin: 0;
+}
+
+/* BUSCA AVANCADA */
+
+.busca label {
+	margin-top: 5px;
+}
+
+.busca .form-control {
+	margin-bottom: 8px;
+}
+
+/* CALENDARIO */
+
+.rich-calendar-input {
+    display: inline;
+}
+
+.rich-calendar-button {
+    margin-left: -25px;
+	position: relative;
+	display: inline-block;
+}
+
+.rich-calendar-exterior td, .rich-calendar-exterior td:first-child {
+	padding:  0;
+}
+
+.rich-calendar-exterior td:first-child {
+	width: 42px;
+}
+	
+.rich-calendar-exterior {
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+	width: auto !important;
+}
+
+.rich-calendar-cell, .rich-calendar-days, .rich-calendar-tool-btn {
+	padding: 2px 0;
+    text-align: center;
+    vertical-align: middle;
+	height: 22px;
+}
+
+.rich-calendar-header, .rich-calendar-footer {
+    height: 32px;
+	background-color: #eeeeee;
+	border: 1px solid #ddd;
+}
+
+.rich-calendar-cell, .rich-calendar-days {
+    border: 1px solid #eee;
+}
+
+.rich-calendar-days {
+	background-color:  #ddd;
+	border-color:  #eee #ddd;
+}
+
+.rich-calendar-cell {
+	color: #19BB9B;
+}
+
+.rich-calendar-cell-size {
+	height: 24px;
+	width:  42px;
+}
+
+.rich-calendar-holly {
+	background-color: #eeeeee;
+	color: #888;
+}
+
+.rich-calendar-boundary-dates {
+    color: #aaaaaa;
+}
+
+.rich-calendar-hover {
+	background-color: #C2C401;
+	color: #fff;
+}
+
+.rich-calendar-today {
+	background-color: #19BB9B;
+	color:  #fff;
+}
+
+.rich-calendar-weekends {
+	color: #888;
+}
+
+.rich-calendar-tool-btn-hover {
+	background-color: #fff;
+}
+
+
+/* ENDERECO */
+
+.endereco td:first-child {
+	width: auto;
+}
+
+.endereco .form-control {
+	height: 34px;
+	width: auto;
+}
+
+.endereco .name {
+	clear: both;
+}
+
+
+
+/* GERENCIAMENTO USUARIOS */
+
+.rich-list-shuttle td {
+    border: 0 none;
+}
+
+.rich-shuttle-source-items, .rich-shuttle-target-items {
+	border-radius: 6px;
+}
+
+.rich-list-shuttle td:first-child {
+	width: auto;
+}
+
+.rich-shuttle-source-row-selected, .rich-shuttle-target-row-selected {
+	background-color: #C2C401;
+	font-weight: bold;
+	border-radius: 6px;	
+
+}
+
+.rich-shuttle-source-cell-selected, .rich-shuttle-source-cell-active, .rich-shuttle-target-cell-selected, .rich-shuttle-target-cell-active  {
+	color: #fff;
+}
+
+
+.rich-list-shuttle-button, .rich-list-shuttle-button-disabled, .rich-list-shuttle-button-light, .rich-list-shuttle-button-press {
+	border: 1px transparent solid;
+	margin: 6px 0;
+	border-radius: 6px;
+	padding: 6px;
+}
+
+.rich-list-shuttle-button-disabled {
+	border:  1px solid #eee;
+}
+
+.rich-list-shuttle-button {
+	background-color: #eee;	
+ }
+
+.rich-list-shuttle-button-light, .rich-list-shuttle-button-press {
+	background-color: #ccc;  
+}
+
+.rich-shuttle-list-content{
+	background-color: #eee;
+	border-radius: 6px;
+}
+
+ 
+.rich-list-shuttle-button-content {
+	
+}
+
+/* ICONES */
+
+.icones {
+	padding-left: 0;
+	white-space: nowrap;
+}
+
+.icone {
+	margin-right: 3px;
+}
+
+
+/* LOGIN */
+
+.login {
+	color: #444;
+	background: none repeat scroll 0 0 #ffffff;
+}
+
+#conteudo.login {
+    margin: 0 auto;
+    width: 300px;
+    padding: 0;
+}
+
+.login #save-logo {
+    margin-top: 55px;
+}
+
+.login #mascotes {
+	margin: 60px 0 -1px -1px;
+	height: 161px;
+}
+
+.login-form {
+    background-color: #D9DDDE;
+    border-radius: 5px 5px 5px 5px;
+	padding: 15px;	
+}
+
+.form-group {
+	padding:10px;
+}
+
+.login input {
+	font-size: 15px;
+	margin:  5px 0;
+    width: 100%;
+	border-radius: 6px;
+	padding: 5px 0;
+}
+
+.login-field {
+    border: 2px solid #D9DDDE;
+    color: #444;
+}
+
+.login-form .login-field {
+    font-size: 15px;
+    text-indent: 6px;
+}
+
+.login-form .login-field-icon {
+	top: 14px;
+}
+
+.login .btn {
+	padding: 8px 0;
+}
+
+#nota {
+	text-align: center;
+	margin: 10px 10px 0;
+}
+
+.login #rodape-logos {
+    margin-top: 50px;
+    text-align: center;
+}
+
+#rodape-logos img {
+    margin: 20px;
+	border: 0 none;
+}
+
+.frame {
+    border: 0 none;
+    width: 100%;
+    height: 700px;
+}

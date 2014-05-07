@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	template="layout/template.xhtml">
+	<ui:define name="body">
+		<h:form id="formFiltro">
+
+			<rich:dataTable id="tbProgEstrategico" value="#{roleLista}" rows="30"
+				var="role" onRowMouseOver="this.classList.add('rich-row-select');"  
+    				onRowMouseOut="this.classList.remove('rich-row-select');" onRowClick="#{roleAction.editar}">
+					<a4j:support event="onRowClick"  action="#{roleAction.editar}"/>
+				<rich:column width="24%">
+					<f:facet name="header">Nome</f:facet>
+					<h:outputText value="#{role.name}" />
+				</rich:column>
+
+				<rich:column width="70%">
+					<f:facet name="header">Descrição</f:facet>
+					<h:outputText value="#{role.description}" />
+				</rich:column>
+
+                <f:facet name="footer">
+                    <rich:datascroller renderIfSinglePage="false" maxPages="5" />
+                </f:facet>
+			</rich:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
